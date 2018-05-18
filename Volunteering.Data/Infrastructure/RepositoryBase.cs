@@ -8,70 +8,70 @@ namespace Volunteering.Data.Infrastructure
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        private AppContext dataContext;
-        private readonly IDbSet<T> dbset;
-        IDatabaseFactory databaseFactory;
+        private AppContext _dataContext;
+        private readonly IDbSet<T> _dbset;
+        IDatabaseFactory _databaseFactory;
         public RepositoryBase(IDatabaseFactory dbFactory)
         {
-            this.databaseFactory = dbFactory;
-            dbset = DataContext.Set<T>();
+            this._databaseFactory = dbFactory;
+            _dbset = DataContext.Set<T>();
 
 
         }
         protected AppContext DataContext
         {
-            get { return dataContext = databaseFactory.DataContext; }
+            get { return _dataContext = _databaseFactory.DataContext; }
         }
 
         #region Synch Methods
         public virtual void Add(T entity)
         {
-            dbset.Add(entity);
+            _dbset.Add(entity);
         }
         public virtual void Update(T entity)
         {
-            dbset.Attach(entity);
-            dataContext.Entry(entity).State = EntityState.Modified;
+            _dbset.Attach(entity);
+            _dataContext.Entry(entity).State = EntityState.Modified;
         }
         public virtual void Delete(T entity)
         {
-            dbset.Remove(entity);
+            _dbset.Remove(entity);
         }
         public virtual void Delete(Expression<Func<T, bool>> where)
         {
-            IEnumerable<T> objects = dbset.Where<T>(where).AsEnumerable();
+            IEnumerable<T> objects = _dbset.Where<T>(where).AsEnumerable();
             foreach (T obj in objects)
-                dbset.Remove(obj);
+                _dbset.Remove(obj);
         }
         public virtual T GetById(long id)
         {
-            return dbset.Find(id);
+            return _dbset.Find(id);
         }
         public virtual T GetById(string id)
         {
-            return dbset.Find(id);
+            return _dbset.Find(id);
         }
         public virtual IEnumerable<T> GetAll()
         {
-            return dbset.ToList();
+            return _dbset.ToList();
         }
 
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where = null, Expression<Func<T, bool>> orderBy = null)
         {
-            IQueryable<T> Query = dbset;
+            IQueryable<T> query = _dbset;
             if (where != null)
             {
-                Query = Query.Where(where);
+                query = query.Where(where);
             }
             if (orderBy != null)
             {
-                Query = Query.OrderBy(orderBy);
+                query = query.OrderBy(orderBy);
             }
-            return Query;
+            return query;
         }
         public T Get(Expression<Func<T, bool>> where)
         {
-            return dbset.Where(where).FirstOrDefault<T>();
+            return _dbset.Where(where).FirstOrDefault<T>();
         }
         #endregion
 

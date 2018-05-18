@@ -3,7 +3,7 @@ namespace Volunteering.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class testMysqlCon1 : DbMigration
+    public partial class TestMysqlCon1 : DbMigration
     {
         public override void Up()
         {

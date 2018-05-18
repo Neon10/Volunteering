@@ -5,7 +5,7 @@ namespace Volunteering.Data.Infrastructure
     public class Disposable : IDisposable
     {
         // Track whether Dispose has been called.
-        private bool isDisposed;
+        private bool _isDisposed;
         // Use C# destructor syntax for finalization code.
         // This destructor will run only if the Dispose method
         // does not get called.
@@ -41,11 +41,11 @@ namespace Volunteering.Data.Infrastructure
         private void Dispose(bool disposing)
         {
             // Check to see if Dispose has already been called.
-            if (!isDisposed && disposing)
+            if (!_isDisposed && disposing)
             {
                 DisposeCore();
             }
-            isDisposed = true;
+            _isDisposed = true;
         }
 
         protected virtual void DisposeCore()
