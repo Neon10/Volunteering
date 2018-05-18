@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace Exam.Data.Conventions
+namespace Volunteering.Data.Conventions
 {
     class DateTime2Convention : Convention
     {
