@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5C6D5A5D-2716-4DC1-8EB9-F9A5ED3EDCED}</ProjectGuid>
+    <ProjectGuid>{F1E7306D-95B4-4928-8E77-DBBAFF4DD53E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Volunteering.Service</RootNamespace>
@@ -41,6 +41,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Service.Pattern\Service.Pattern.csproj">
+      <Project>{978ecce0-90c1-45d2-91ad-456d1c18ff6a}</Project>
+      <Name>Service.Pattern</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Volunteering.Data\Volunteering.Data.csproj">
+      <Project>{61b6b4db-05bc-492f-bea4-26915282a272}</Project>
+      <Name>Volunteering.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Volunteering.Domain\Volunteering.Domain.csproj">
+      <Project>{cc20226f-10b9-4eb4-a1bd-d660666ad3f8}</Project>
+      <Name>Volunteering.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
