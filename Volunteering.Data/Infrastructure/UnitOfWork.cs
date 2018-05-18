@@ -3,29 +3,29 @@
     public class UnitOfWork : IUnitOfWork
     {
        
-         private AppContext dataContext;
+         private AppContext _dataContext;
 
-        IDatabaseFactory dbFactory;
+        IDatabaseFactory _dbFactory;
         public UnitOfWork(IDatabaseFactory dbFactory)
         {
-            this.dbFactory = dbFactory;
-            dataContext = dbFactory.DataContext;
+            this._dbFactory = dbFactory;
+            _dataContext = dbFactory.DataContext;
         }
         
 
 
         public void Commit()
         {
-            dataContext.SaveChanges();
+            _dataContext.SaveChanges();
         }
         
         public void Dispose()
         {
-            dataContext.Dispose();
+            _dataContext.Dispose();
         }
-        public IRepositoryBase<T> getRepository<T>() where T : class
+        public IRepositoryBase<T> GetRepository<T>() where T : class
         {
-            IRepositoryBase<T> repo = new RepositoryBase<T>(dbFactory);
+            IRepositoryBase<T> repo = new RepositoryBase<T>(_dbFactory);
             return repo;
         }
       
