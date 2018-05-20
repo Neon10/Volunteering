@@ -10,6 +10,17 @@ namespace Volunteering.Data
     {
         public AppContext() : base("MyContext")
         {
+            //=============================================//
+            //   ------ Initializing Roles DataBase -------//
+            //=============================================//
+
+            //IdentityRole adminRole = new IdentityRole(EAccountType.Administrator.ToString());
+            //IdentityRole ngoRole = new IdentityRole(EAccountType.Ngo.ToString());
+            //IdentityRole volunteerRole = new IdentityRole(EAccountType.Volunteer.ToString());
+
+            //Roles.Add(adminRole);
+            //Roles.Add(ngoRole);
+            //Roles.Add(volunteerRole);
 
         }
 

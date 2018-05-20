@@ -94,6 +94,10 @@
     <Compile Include="Migrations\201805201636474_identityIntergrationTest.Designer.cs">
       <DependentUpon>201805201636474_identityIntergrationTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805201937049_NewApplicationUserSubClasses.cs" />
+    <Compile Include="Migrations\201805201937049_NewApplicationUserSubClasses.Designer.cs">
+      <DependentUpon>201805201937049_NewApplicationUserSubClasses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -116,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805201636474_identityIntergrationTest.resx">
       <DependentUpon>201805201636474_identityIntergrationTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805201937049_NewApplicationUserSubClasses.resx">
+      <DependentUpon>201805201937049_NewApplicationUserSubClasses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
