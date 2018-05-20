@@ -1,11 +1,12 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using Volunteering.Domain.Entities;
 
 namespace Volunteering.Data
 {
 
     [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
-    public class AppContext : DbContext
+    public class AppContext : IdentityDbContext<ApplicationUser>
     {
         public AppContext() : base("MyContext")
         {
