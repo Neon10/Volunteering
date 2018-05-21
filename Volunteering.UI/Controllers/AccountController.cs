@@ -27,17 +27,47 @@ namespace Volunteering.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var userService = new UserService();
+                IdentityResult result;
 
-                var result = await userService.UserManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
+                // Switch on Selected Account type
+                switch (model.AccountType)
                 {
-                    userService.UserManager.AddToRole(user.Id, EAccountType.Volunteer.ToString());
-                    return RedirectToAction("Index", "Home");
+                    // Volunteer Account type selected:
+                    case EAccountType.Volunteer:
+                        {
+                            // create new volunteer and map form values to the instance
+                            Volunteer v = new Volunteer { UserName = model.Email, Email = model.Email };
+                            result = await userService.UserManager.CreateAsync(v, model.Password);
+
+                            // Add volunteer role to the new User
+                            if (result.Succeeded)
+                            {
+                                userService.UserManager.AddToRole(v.Id, EAccountType.Volunteer.ToString());
+                                return RedirectToAction("Index", "Home");
+                            }
+                            AddErrors(result);
+                        }
+                        break;
+
+                    // Ngo Account type selected:
+                    case EAccountType.Ngo:
+                        {
+                            // create new Ngo and map form values to the instance
+                            Ngo ngo = new Ngo { UserName = model.Email, Email = model.Email };
+                            result = await userService.UserManager.CreateAsync(ngo, model.Password);
+
+                            // Add Ngo role to the new User
+                            if (result.Succeeded)
+                            {
+                                userService.UserManager.AddToRole(ngo.Id, EAccountType.Ngo.ToString());
+                                return RedirectToAction("Index", "Home");
+                            }
+                            AddErrors(result);
+                        }
+                        break;
                 }
-                AddErrors(result);
+
             }
 
             // If we got this far, something failed, redisplay form

@@ -1,6 +1,6 @@
 ﻿namespace Volunteering.Domain.Entities
 {
-    class Ngo : ApplicationUser
+    public class Ngo : ApplicationUser
     {
 
 

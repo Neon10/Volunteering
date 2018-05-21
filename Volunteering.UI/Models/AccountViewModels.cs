@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Volunteering.Domain.Enums;
 
 namespace Volunteering.UI.Models
 {
@@ -23,9 +24,9 @@ namespace Volunteering.UI.Models
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            //[Required]
-            //[Display(Name = "Account Type")]
-            //public string AccountType { get; set; }
+            [Required]
+            [Display(Name = "Account Type")]
+            public EAccountType AccountType { get; set; }
         }
     }
 }
