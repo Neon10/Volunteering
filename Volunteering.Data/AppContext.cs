@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using MySql.Data.Entity;
 using System.Data.Entity;
 using Volunteering.Domain.Entities;
 
 namespace Volunteering.Data
 {
 
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class AppContext : IdentityDbContext<ApplicationUser>
     {
         public AppContext() : base("MyContext")
@@ -24,9 +25,13 @@ namespace Volunteering.Data
 
         }
 
+        public static AppContext Create()
+        {
+            return new AppContext();
+        }
+
 
 
         public DbSet<Action> Actions { get; set; }
-
     }
 }
