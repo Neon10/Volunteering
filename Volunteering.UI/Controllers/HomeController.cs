@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Web;
 using System.Web.Mvc;
-using Volunteering.Domain.Entities;
-using Volunteering.Service.Identity;
+using Volunteering.Service;
 
 namespace Volunteering.UI.Controllers
 {
@@ -16,21 +14,25 @@ namespace Volunteering.UI.Controllers
 
 
 
-        public async Task<string> AddUser()
+        public string AddUser()
         {
-            UserService us = new UserService();
-            var user = new ApplicationUser
-            {
-                UserName = "TestUser",
-                Email = "TestUser@test.com"
-            };
+            AppService s = new AppService();
+            s.TestContext();
 
 
-            var result = await us.UserManager.CreateAsync(user);
-            if (!result.Succeeded)
-            {
-                return result.Errors.First();
-            }
+            //UserService us = new UserService();
+            //var user = new ApplicationUser
+            //{
+            //    UserName = "TestUser",
+            //    Email = "TestUser@test.com"
+            //};
+
+
+            //var result = await us.UserManager.CreateAsync(user);
+            //if (!result.Succeeded)
+            //{
+            //    return result.Errors.First();
+            //}
             return "User Added";
         }
 

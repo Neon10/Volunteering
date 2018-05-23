@@ -2,6 +2,9 @@
 
 namespace Volunteering.Service.Identity
 {
+
+    // TODO Refactor UserService Class 
+
     public class UserService
     {
         public ApplicationUserManager UserManager { get; set; }

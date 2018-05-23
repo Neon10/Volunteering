@@ -1,45 +1,43 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Owin;
+using System.Web;
 using Volunteering.Data;
+using Volunteering.Domain.Entities;
+using Volunteering.Service.Identity;
 
 namespace Volunteering.Service
 {
     public class AppService
     {
-        public delegate AppContext Del();
-
-        public AppContext AppContext { get; set; }
-
-        public Del CreateDel = AppContext.Create;
-
-        public object Test = AppContext.Create();
-
-        //public Func<T> AaaFunc = Aaa;
 
 
-        public IDisposable aaa()
+        // TODO Remove this Method
+        public void TestContext()
         {
-            return new AppContext();
+            IOwinContext c = new OwinContext();
+            Volunteer v = new Volunteer { Email = "123@123.fr", UserName = "123456" };
+            var cox = HttpContext.Current.GetOwinContext().Get<AppContext>();
+
+            // c.Get<AppContext>().Users.Add(v);
+
         }
 
 
-        public static AppContext Aaa()
+        public static void OwinInit(IAppBuilder app)
         {
-            return new AppContext();
+
+            app.CreatePerOwinContext(AppContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+
         }
 
-
-        //app.CreatePerOwinContext();
-
-        public IDisposable CreateContext()
+        public static void InitManagers()
         {
-            return new AppContext();
+            //TODO Extract Managers initialisation Here
         }
 
-        public AppContext GetContext()
-        {
-            return new AppContext();
-
-        }
 
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Volunteering.Domain.Entities;
 using Volunteering.Domain.Enums;
@@ -8,8 +11,113 @@ using Volunteering.UI.Models;
 
 namespace Volunteering.UI.Controllers
 {
+
+    //TODO SendCode Action
+    //TODO Lockout View
+
     public class AccountController : Controller
     {
+        //===========================//
+        //--------- MANAGERS ----------
+        //===========================//
+
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+        private readonly UserService _userService = new UserService();
+
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+
+        //===========================//
+        //--------- LOGIN ----------
+        //===========================//
+
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(AccountViewModels.LoginViewModel model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+        }
+
+        //===========================//
+        //--------- LOG OUT ---------
+        //===========================//
+
+        //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
+        //===========================//
+        //--------- REGISTER --------
+        //===========================//
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -27,7 +135,7 @@ namespace Volunteering.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userService = new UserService();
+
                 IdentityResult result;
 
                 // Switch on Selected Account type
@@ -38,12 +146,15 @@ namespace Volunteering.UI.Controllers
                         {
                             // create new volunteer and map form values to the instance
                             Volunteer v = new Volunteer { UserName = model.Email, Email = model.Email };
-                            result = await userService.UserManager.CreateAsync(v, model.Password);
+                            result = await UserManager.CreateAsync(v, model.Password);
 
                             // Add volunteer role to the new User
                             if (result.Succeeded)
                             {
-                                userService.UserManager.AddToRole(v.Id, EAccountType.Volunteer.ToString());
+                                UserManager.AddToRole(v.Id, EAccountType.Volunteer.ToString());
+                                await SignInManager.SignInAsync(v, isPersistent: false, rememberBrowser: false);
+                                // Email confirmation here
+
                                 return RedirectToAction("Index", "Home");
                             }
                             AddErrors(result);
@@ -55,12 +166,14 @@ namespace Volunteering.UI.Controllers
                         {
                             // create new Ngo and map form values to the instance
                             Ngo ngo = new Ngo { UserName = model.Email, Email = model.Email };
-                            result = await userService.UserManager.CreateAsync(ngo, model.Password);
+                            result = await UserManager.CreateAsync(ngo, model.Password);
 
                             // Add Ngo role to the new User
                             if (result.Succeeded)
                             {
-                                userService.UserManager.AddToRole(ngo.Id, EAccountType.Ngo.ToString());
+                                UserManager.AddToRole(ngo.Id, EAccountType.Ngo.ToString());
+                                await SignInManager.SignInAsync(ngo, isPersistent: false, rememberBrowser: false);
+
                                 return RedirectToAction("Index", "Home");
                             }
                             AddErrors(result);
@@ -81,5 +194,28 @@ namespace Volunteering.UI.Controllers
                 ModelState.AddModelError("", error);
             }
         }
+
+        //===========================//
+        //--------- HELPERS ---------
+        //===========================//
+
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        // FOR REFERENCE
+        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+        // Send an email with this link
+        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
     }
 }
