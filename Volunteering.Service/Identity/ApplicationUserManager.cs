@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using System.Web;
 using Volunteering.Data;
 using Volunteering.Domain.Entities;
 
@@ -14,17 +15,18 @@ namespace Volunteering.Service.Identity
 
         public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store)
         {
-            store = new ApplicationUserStore(new AppContext());
+            store = new ApplicationUserStore(HttpContext.Current.GetOwinContext().Get<AppContext>());
+
+
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var store = new UserStore<ApplicationUser>(context.Get<AppContext>());
-            var manager = new ApplicationUserManager(store);
+            //var store = new UserStore<ApplicationUser>(context.Get<AppContext>());
+            //var manager = new ApplicationUserManager(store);
 
-            // var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<AppContext>()));
 
-            // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
