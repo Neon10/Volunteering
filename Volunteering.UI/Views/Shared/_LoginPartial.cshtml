@@ -7,6 +7,7 @@
     //{
 
     //    @Html.AntiForgeryToken()
+    @*<li><a href="javascript:document.getElementById('logoutForm').submit()">  LogOut <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>*@
 
     //}
 
@@ -14,9 +15,10 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink(" ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "glyphicon glyphicon-user h3" }) </li>
-        <li>@Html.ActionLink("  " , "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Notfications" , @class= "glyphicon glyphicon-globe h3" }) </li>
-        @*<li><a href="javascript:document.getElementById('logoutForm').submit()">  LogOut <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>*@
-        <li> @Html.ActionLink(" ", "Logout", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = " glyphicon glyphicon-log-in h3" })</li>
+        <li>@Html.ActionLink("  " , "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Invitations" , @class= "glyphicon glyphicon-envelope h3" }) </li>
+        <li>@Html.ActionLink("  " , "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Messages" , @class= "glyphicon glyphicon-comment h3" }) </li>
+        <li>@Html.ActionLink("  " , "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Notfications" , @class= "glyphicon glyphicon-bell h3" }) </li>
+        <li> @Html.ActionLink(" ", "Logout", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = " glyphicon glyphicon-log-out h3" })</li>
 
     </ul>
 

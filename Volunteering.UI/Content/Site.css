@@ -44,3 +44,8 @@ textarea {
     border-color: #080808;
     box-shadow: -2px 7px 19px black;
 }
+
+.navbar-right {
+    float: right!important;
+    margin-top: -5px;
+}

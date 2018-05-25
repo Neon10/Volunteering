@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using Volunteering.Domain.Entities;
 using Volunteering.Service.Identity;
 
 namespace Volunteering.UI.Controllers_Api
@@ -13,9 +15,23 @@ namespace Volunteering.UI.Controllers_Api
         // GET: api/Test
         public IQueryable<object> Get()
         {
+
+
             var users = us.UserManager.Users.Select(u => new { UserName = u.UserName, Email = u.Email, Role = u.Roles });
             return users;
         }
+
+
+
+        [Route("getUsers")]
+        // GET: api/Test
+        public IEnumerable<ApplicationUser> GetAllUsers()
+        {
+            var users = us.UserManager.Users.ToList();
+            return users;
+
+        }
+
 
         // GET: api/Test/5
         public string Get(int id)
