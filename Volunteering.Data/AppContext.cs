@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using MySql.Data.Entity;
 using System.Data.Entity;
+using Volunteering.Data.Conventions;
 using Volunteering.Domain.Entities;
 
 namespace Volunteering.Data
@@ -24,6 +25,12 @@ namespace Volunteering.Data
             //Roles.Add(volunteerRole);
 
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Add(new DateTime2Convention());
+        }
+
 
         public static AppContext Create()
         {
