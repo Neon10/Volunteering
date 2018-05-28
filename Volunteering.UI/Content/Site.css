@@ -1,7 +1,14 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
+    background-image: url("Images/intersection.png");
+    background-repeat: repeat;
+
+
+
 }
+
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -16,3 +23,45 @@ textarea {
     max-width: 280px;
 }
 
+
+.footer {
+    width: 100%;
+    background-color: rgba(9, 19, 43, 0.86);
+    color: white;
+    text-align: center;
+    margin-top: -50px;
+    background-image: url("Images/congruent_outline.png");
+    background-repeat: repeat;
+    box-shadow: 0px -11px 10px #888888;
+
+    height: 100px;
+
+}
+
+
+
+.navbar-inverse .navbar-brand {
+    color: #f5f5f5;
+}
+
+.navbar-brand {
+    float: left;
+    padding: 15px 15px;
+    font-size: 26px;
+    line-height: 20px;
+}
+
+.navbar-inverse {
+    background-color: rgba(9, 19, 43, 0.84);
+    border-color: #080808;
+    box-shadow: -2px 7px 19px black;
+}
+
+.navbar-right {
+    float: right!important;
+    margin-top: -5px;
+}
+
+.label-test {
+    padding-left: 10px;
+}

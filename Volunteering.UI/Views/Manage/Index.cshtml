@@ -1,4 +1,5 @@
-﻿
+﻿@using Volunteering.Service.Identity
+
 @{
     ViewBag.Title = "Manage";
 }
@@ -8,3 +9,45 @@
 
 
 <h1> USER DASHBOARD PLACEHOLDER</h1>
+
+<div class="col-md-3">
+    
+    <ul class="nav nav-pills nav-stacked well well-lg">
+        <li class="active"><a data-toggle="tab" href="#home">Profile summary</a></li>
+        <li><a data-toggle="tab" href="#menu1">Invitations <span class="label label-danger "> @(new UserService().UserManager.Users.Count()) </span> </a></li>
+        <li><a data-toggle="tab" href="#menu2">Edit Profile</a></li>
+    </ul>
+</div>
+
+
+<div class="col-md-9 well well-lg">
+
+
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <h3>Profile stats</h3>
+            <p>number of actions</p>
+            <p>number of donations</p>
+            <p>biggest donation</p>
+            <p>total donations</p>
+            <br/>
+            <br/>
+            <br />
+            <br />
+            <br />
+
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>Invitations</h3>
+            <p>List of pending invitations.</p>
+            <p>List of archived invitations.</p>
+
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <h3>Edit Profile</h3>
+            <p>Edit preferences or profile informations</p>
+        </div>
+    </div>
+
+</div>
