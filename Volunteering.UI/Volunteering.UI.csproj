@@ -194,6 +194,11 @@
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
+    <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.validate.js" />
+    <Content Include="scripts\jquery.validate.min.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -202,6 +207,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FundraisingCampaignController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers_Api\AccountController.cs" />
@@ -231,6 +237,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Shared\_Slider.cshtml" />
+    <Content Include="Views\FundraisingCampaign\Index.cshtml" />
+    <Content Include="Views\FundraisingCampaign\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -242,6 +250,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Service.Pattern\Service.Pattern.csproj">
+      <Project>{978ecce0-90c1-45d2-91ad-456d1c18ff6a}</Project>
+      <Name>Service.Pattern</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Volunteering.Domain\Volunteering.Domain.csproj">
       <Project>{CC20226F-10B9-4EB4-A1BD-D660666AD3F8}</Project>
       <Name>Volunteering.Domain</Name>

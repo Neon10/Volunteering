@@ -98,9 +98,9 @@
     <Compile Include="Migrations\201805201937049_NewApplicationUserSubClasses.Designer.cs">
       <DependentUpon>201805201937049_NewApplicationUserSubClasses.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805290147583_AddedDonationsDBSet.cs" />
-    <Compile Include="Migrations\201805290147583_AddedDonationsDBSet.Designer.cs">
-      <DependentUpon>201805290147583_AddedDonationsDBSet.cs</DependentUpon>
+    <Compile Include="Migrations\201805290209290_AddedDonationsAndCampaignTables.cs" />
+    <Compile Include="Migrations\201805290209290_AddedDonationsAndCampaignTables.Designer.cs">
+      <DependentUpon>201805290209290_AddedDonationsAndCampaignTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,8 +128,8 @@
     <EmbeddedResource Include="Migrations\201805201937049_NewApplicationUserSubClasses.resx">
       <DependentUpon>201805201937049_NewApplicationUserSubClasses.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805290147583_AddedDonationsDBSet.resx">
-      <DependentUpon>201805290147583_AddedDonationsDBSet.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805290209290_AddedDonationsAndCampaignTables.resx">
+      <DependentUpon>201805290209290_AddedDonationsAndCampaignTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

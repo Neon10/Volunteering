@@ -7,13 +7,13 @@ namespace Volunteering.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddedDonationsDBSet : IMigrationMetadata
+    public sealed partial class AddedDonationsAndCampaignTables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedDonationsDBSet));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedDonationsAndCampaignTables));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805290147583_AddedDonationsDBSet"; }
+            get { return "201805290209290_AddedDonationsAndCampaignTables"; }
         }
         
         string IMigrationMetadata.Source
