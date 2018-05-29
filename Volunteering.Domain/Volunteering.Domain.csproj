@@ -57,14 +57,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Action.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Donation.cs" />
     <Compile Include="Entities\FundraisingCampaign.cs" />
+    <Compile Include="Entities\Invitation.cs" />
     <Compile Include="Entities\Ngo.cs" />
     <Compile Include="Entities\Notifcation.cs" />
+    <Compile Include="Entities\VoluntaryAction.cs" />
     <Compile Include="Entities\Volunteer.cs" />
+    <Compile Include="Enums\ActionType.cs" />
     <Compile Include="Enums\EAccountType.cs" />
+    <Compile Include="Enums\InvitationStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

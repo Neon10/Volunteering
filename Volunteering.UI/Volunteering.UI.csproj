@@ -209,7 +209,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FundraisingCampaignController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvitationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VoluntaryActionController.cs" />
     <Compile Include="Controllers_Api\AccountController.cs" />
     <Compile Include="Controllers_Api\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -239,6 +241,8 @@
     <Content Include="Views\Shared\_Slider.cshtml" />
     <Content Include="Views\FundraisingCampaign\Index.cshtml" />
     <Content Include="Views\FundraisingCampaign\Details.cshtml" />
+    <Content Include="Views\VoluntaryAction\Details.cshtml" />
+    <Content Include="Views\VoluntaryAction\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -248,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Invitation\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Service.Pattern\Service.Pattern.csproj">

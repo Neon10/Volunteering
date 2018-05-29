@@ -1,0 +1,67 @@
+﻿@model Volunteering.Domain.Entities.VoluntaryAction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col-md-8 well well-sm">
+        <h4>VoluntaryAction</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StartDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MaxVolunteers)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MaxVolunteers)
+            </dd>
+
+        </dl>
+    </div>
+    
+    <div class="well well-lg col-md-4">
+        
+        INVITATIONS HERE
+        
+
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ActionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

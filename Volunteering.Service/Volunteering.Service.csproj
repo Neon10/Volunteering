@@ -94,9 +94,11 @@
     <Compile Include="FundraisingCampaignService.cs" />
     <Compile Include="Identity\ApplicationSignInManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
+    <Compile Include="InvitationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Identity\UserService.cs" />
     <Compile Include="Startup.Service.cs" />
+    <Compile Include="VoluntaryActionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Service.Pattern\Service.Pattern.csproj">

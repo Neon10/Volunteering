@@ -1,0 +1,90 @@
+﻿using System.Web.Mvc;
+using Volunteering.Service;
+
+namespace Volunteering.UI.Controllers
+{
+    public class VoluntaryActionController : Controller
+    {
+
+        private VoluntaryActionService vas = new VoluntaryActionService();
+
+        // GET: VoluntaryAction
+        public ActionResult Index()
+        {
+
+            return View(vas.GetAll());
+        }
+
+        // GET: VoluntaryAction/Details/5
+        public ActionResult Details(int id)
+        {
+            return View(vas.GetById(id));
+        }
+
+        // GET: VoluntaryAction/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: VoluntaryAction/Create
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: VoluntaryAction/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: VoluntaryAction/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: VoluntaryAction/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: VoluntaryAction/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}
