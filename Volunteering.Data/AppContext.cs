@@ -39,5 +39,9 @@ namespace Volunteering.Data
 
 
         public DbSet<Action> Actions { get; set; }
+        public DbSet<FundraisingCampaign> Campaigns { get; set; }
+        public DbSet<Donation> Donations { get; set; }
+
+
     }
 }

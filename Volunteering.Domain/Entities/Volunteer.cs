@@ -1,12 +1,11 @@
-﻿namespace Volunteering.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Volunteering.Domain.Entities
 {
     public class Volunteer : ApplicationUser
     {
 
-        public Volunteer()
-        {
-            // this.Roles.Add();
-        }
+        public ICollection<Donation> Donations { get; set; }
 
     }
 }
