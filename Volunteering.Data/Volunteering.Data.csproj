@@ -106,6 +106,10 @@
     <Compile Include="Migrations\201805291554264_AddedInvitationAndActionModels.Designer.cs">
       <DependentUpon>201805291554264_AddedInvitationAndActionModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805301011363_adding address attribute.cs" />
+    <Compile Include="Migrations\201805301011363_adding address attribute.Designer.cs">
+      <DependentUpon>201805301011363_adding address attribute.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -137,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805291554264_AddedInvitationAndActionModels.resx">
       <DependentUpon>201805291554264_AddedInvitationAndActionModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805301011363_adding address attribute.resx">
+      <DependentUpon>201805301011363_adding address attribute.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

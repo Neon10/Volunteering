@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Volunteering.Domain.Entities;
 using Volunteering.Service;
 
 namespace Volunteering.UI.Controllers
@@ -29,18 +30,28 @@ namespace Volunteering.UI.Controllers
 
         // POST: VoluntaryAction/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(VoluntaryAction V)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            VoluntaryAction v = new VoluntaryAction();
+            //try
+            //{
+                v.Name = V.Name;
+                v.Address = V.Address;
+                v.Description = V.Description;
+                v.StartDate = V.StartDate;
+                v.EndDate = V.EndDate;
+                v.MaxVolunteers = V.MaxVolunteers;
+                v.ActionType = V.ActionType;
+                vas.Add(v);
+                vas.Commit();
+
 
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: VoluntaryAction/Edit/5
@@ -51,11 +62,21 @@ namespace Volunteering.UI.Controllers
 
         // POST: VoluntaryAction/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, VoluntaryAction V)
         {
+            VoluntaryAction v = new VoluntaryAction();
+             v = vas.GetById(V.ActionId);
+
             try
             {
-                // TODO: Add update logic here
+                V.Name = v.Name;
+                v.Address = V.Address;
+                v.Description = V.Description;
+                v.StartDate = V.StartDate;
+                v.EndDate = V.EndDate;
+                v.MaxVolunteers = V.MaxVolunteers;
+                v.ActionType = V.ActionType;
+                vas.Dispose();
 
                 return RedirectToAction("Index");
             }
@@ -73,12 +94,12 @@ namespace Volunteering.UI.Controllers
 
         // POST: VoluntaryAction/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, VoluntaryAction V)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                vas.Delete(vas.GetById(V.ActionId));
+                vas.Commit();
                 return RedirectToAction("Index");
             }
             catch
