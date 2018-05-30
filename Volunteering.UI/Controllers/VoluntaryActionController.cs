@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Volunteering.Domain.Entities;
+using Volunteering.Domain.Enums;
 using Volunteering.Service;
 
 namespace Volunteering.UI.Controllers
@@ -23,6 +24,8 @@ namespace Volunteering.UI.Controllers
         }
 
         // GET: VoluntaryAction/Create
+        [Authorize(Roles = "Ngo")]
+
         public ActionResult Create()
         {
             return View();
@@ -57,26 +60,28 @@ namespace Volunteering.UI.Controllers
         // GET: VoluntaryAction/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(vas.GetById(id));
         }
 
         // POST: VoluntaryAction/Edit/5
+        [Authorize(Roles ="Ngo")]
         [HttpPost]
         public ActionResult Edit(int id, VoluntaryAction V)
         {
-            VoluntaryAction v = new VoluntaryAction();
-             v = vas.GetById(V.ActionId);
+            VoluntaryAction action = new VoluntaryAction();
+            action = vas.GetById(V.ActionId);
 
             try
             {
-                V.Name = v.Name;
-                v.Address = V.Address;
-                v.Description = V.Description;
-                v.StartDate = V.StartDate;
-                v.EndDate = V.EndDate;
-                v.MaxVolunteers = V.MaxVolunteers;
-                v.ActionType = V.ActionType;
-                vas.Dispose();
+                action.Name = V.Name;
+                action.Address = V.Address;
+                action.Description = V.Description;
+                action.StartDate = V.StartDate;
+                action.EndDate = V.EndDate;
+                action.MaxVolunteers = V.MaxVolunteers;
+                action.ActionType = V.ActionType;
+                vas.Add(action);
+                vas.Commit();
 
                 return RedirectToAction("Index");
             }
