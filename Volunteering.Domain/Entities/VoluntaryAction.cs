@@ -21,7 +21,7 @@ namespace Volunteering.Domain.Entities
         [DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
 
-        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required]
         public DateTime StartDate { get; set; }
 
