@@ -24,7 +24,7 @@ namespace Volunteering.UI.Controllers
         }
 
         // GET: VoluntaryAction/Create
-        [Authorize(Roles = "Ngo")]
+        //[Authorize(Roles = "Ngo")]
 
         public ActionResult Create()
         {
