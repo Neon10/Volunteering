@@ -29,6 +29,12 @@
         <th>
             @Html.DisplayNameFor(model => model.MaxVolunteers)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActionType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatorNgo)
+        </th>
         <th></th>
     </tr>
 
@@ -51,6 +57,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MaxVolunteers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActionType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatorNgo.UserName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ActionId }) |
