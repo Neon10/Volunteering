@@ -1,4 +1,5 @@
-﻿
+﻿@using Volunteering.Service
+
 @{
     ViewBag.Title = "Index";
 }
@@ -16,12 +17,25 @@
         <div class=" well well-sm">
             <label class="glyphicon glyphicon-plus-sign h3"> Recent Actions:</label>
             <hr />
+            <ul>
+                @foreach (var action in new @VoluntaryActionService().GetRecentActions())
+            {<li>
 
-            <br />
-            <br />
-            <br />
-            <br />
-        </div>
+                 <a href="@Url.Action("Details", "VoluntaryAction", new {id =@action.ActionId})">
+                     @action.Name
+                 </a>
+                 <br />
+                 <span>From<span> </span></span><span>@action.StartDate.ToString("d")<span> </span></span><span>  </span><span>To<span> </span></span><span>@action.EndDate.ToString("d")</span>
+             </li>
+                    <br />
+                    // @Html.ActionLink(@action.Address, "Details", "VoluntaryAction", new { id = action.ActionId })
+                }
+            </ul>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+</div>
         
 
         <div class=" well well-sm">

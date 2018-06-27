@@ -252,6 +252,7 @@
     <Content Include="Views\FundraisingCampaign\NgoCompaigns.cshtml" />
     <Content Include="Views\Donation\Create.cshtml" />
     <Content Include="Views\Donation\Index.cshtml" />
+    <Content Include="Views\Manage\_NgoProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

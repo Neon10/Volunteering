@@ -1,0 +1,75 @@
+﻿@model Volunteering.Domain.Entities.VoluntaryAction
+@using Volunteering.Service
+@{
+    ViewBag.Title = "ListParticipants";
+}
+
+<h2>ListParticipants</h2>
+
+<div>
+    <h4>VoluntaryAction</h4>
+    <hr />
+   
+       
+        
+        
+    <table class="table">
+
+        <tr>
+
+            <th>
+                Volunteer Name
+            </th>
+            <th>
+                Volunteer Email
+            </th>
+        </tr>
+
+
+        @foreach (var action in new @VoluntaryActionService().GetAllActions())
+        {
+
+            if (action.ActionId==Model.ActionId)
+            {
+                foreach (var item in action.Participants)
+                {
+                    <tr>
+                        <td>
+                            @item.UserName
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                    </tr>
+            }
+
+
+            
+            }
+
+
+
+        }
+    </table>
+
+
+
+@*<dd>
+            @Html.DisplayName(new @VoluntaryActionService().GetAllActions().Count().ToString())
+            @foreach (var action in new @VoluntaryActionService().GetAllActions())
+            {
+                foreach (var VARIABLE in action.Participants)
+                {
+                    @Html.DisplayName(VARIABLE.UserName)
+                }
+
+            }
+            @Html.ActionLink("See the list of participants", "Index")
+        </dd>
+
+
+    </dl>*@
+</div>
+<p>
+    @Html.ActionLink("Back to Action Details", "Details", new { id = Model.ActionId })
+</p>

@@ -11,7 +11,7 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal well well-lg">
         <h4>VoluntaryAction</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -64,6 +64,13 @@
                 @Html.ValidationMessageFor(model => model.MaxVolunteers, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ActionType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.ActionType, "Select Action Type", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ActionType, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -80,3 +87,18 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB8BtMRdu9tvtEaHDsoRFKafb3eDeiUcGA&libraries=places">
+</script>
+<script type="text/javascript">
+
+    google.maps.event.addDomListener(window, 'load', function () {
+        //var options = {
+        //    types: ['(cities)'],
+        //    componentRestrictions: { country: "tn" }
+        //};
+        var input = document.getElementById('Address');
+        var places = new google.maps.places.Autocomplete(input);
+
+
+    });
+</script>  

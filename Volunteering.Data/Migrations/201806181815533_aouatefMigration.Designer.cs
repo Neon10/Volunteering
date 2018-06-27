@@ -7,13 +7,13 @@ namespace Volunteering.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddedInvitationAndActionModels : IMigrationMetadata
+    public sealed partial class aouatefMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedInvitationAndActionModels));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(aouatefMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805291554264_AddedInvitationAndActionModels"; }
+            get { return "201806181815533_aouatefMigration"; }
         }
         
         string IMigrationMetadata.Source
