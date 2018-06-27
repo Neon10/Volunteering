@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Volunteering.Data.Infrastructure;
 using Volunteering.Domain.Entities;
+using Volunteering.Service.Identity;
+using Microsoft.AspNet.Identity;
+using System.Collections;
 
 namespace Volunteering.Service
 {
@@ -17,15 +20,6 @@ namespace Volunteering.Service
         {
         }
 
-
-
-
-        // GET current amout of donations for provided Campaign id
-        public int TotalDonations(int id)
-        {
-            return ut.GetRepository<FundraisingCampaign>().GetById(id).Donations.Sum(d => d.Amount);
-        }
-
         //Example
         public IEnumerable<FundraisingCampaign> GetAllCampaigns()
         {
@@ -34,6 +28,43 @@ namespace Volunteering.Service
 
             return res;
         }
+
+        // GET current amout of donations for provided Campaign id
+        public int TotalDonations(int id)
+        {
+            return ut.GetRepository<FundraisingCampaign>().GetById(id).Donations.Sum(d => d.Amount);
+        }
+
+        // GET FundraisingCampaign by NGO
+        public IEnumerable FundraisingCompaignByNgo()
+        {
+            UserService us = new UserService();
+            List<FundraisingCampaign> Funds = new List<FundraisingCampaign>();
+
+            //var iduser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            Funds = ut.GetRepository<FundraisingCampaign>().GetAll().ToList();
+
+            Ngo ngo = us.UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()) as Ngo;
+
+            foreach (var fund in Funds)
+            {
+                if (fund.OwnerNgo == ngo)
+                {
+                    Funds.Remove(fund);
+                }
+            }
+
+            return Funds;
+        }
+
+
+
+
+
+
+
+
 
     }
 }

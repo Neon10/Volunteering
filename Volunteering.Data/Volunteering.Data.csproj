@@ -110,6 +110,10 @@
     <Compile Include="Migrations\201805301011363_adding address attribute.Designer.cs">
       <DependentUpon>201805301011363_adding address attribute.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.cs" />
+    <Compile Include="Migrations\201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.Designer.cs">
+      <DependentUpon>201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -144,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805301011363_adding address attribute.resx">
       <DependentUpon>201805301011363_adding address attribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.resx">
+      <DependentUpon>201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
