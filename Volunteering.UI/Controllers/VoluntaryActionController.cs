@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Volunteering.Domain.Entities;
 using Volunteering.Domain.Enums;
 using Volunteering.Service;
+using Volunteering.Service.Identity;
 
 namespace Volunteering.UI.Controllers
 {
@@ -9,6 +11,7 @@ namespace Volunteering.UI.Controllers
     {
 
         private VoluntaryActionService vas = new VoluntaryActionService();
+        private  UserService us = new UserService();
 
         // GET: VoluntaryAction
         public ActionResult Index()
@@ -33,6 +36,7 @@ namespace Volunteering.UI.Controllers
 
         // POST: VoluntaryAction/Create
         [HttpPost]
+        //[Authorize(Roles = "Ngo")]
         public ActionResult Create(VoluntaryAction V)
         {
             VoluntaryAction v = new VoluntaryAction();
@@ -45,7 +49,8 @@ namespace Volunteering.UI.Controllers
                 v.EndDate = V.EndDate;
                 v.MaxVolunteers = V.MaxVolunteers;
                 v.ActionType = V.ActionType;
-                vas.Add(v);
+                 v.CreatorNgoId = User.Identity.GetUserId();
+            vas.Add(v);
                 vas.Commit();
 
 
@@ -58,13 +63,14 @@ namespace Volunteering.UI.Controllers
         }
 
         // GET: VoluntaryAction/Edit/5
+        //[Authorize(Roles = "Ngo")]
         public ActionResult Edit(int id)
         {
             return View(vas.GetById(id));
         }
 
         // POST: VoluntaryAction/Edit/5
-        [Authorize(Roles ="Ngo")]
+       //[Authorize(Roles ="Ngo")]
         [HttpPost]
         public ActionResult Edit(int id, VoluntaryAction V)
         {
@@ -80,8 +86,8 @@ namespace Volunteering.UI.Controllers
                 action.EndDate = V.EndDate;
                 action.MaxVolunteers = V.MaxVolunteers;
                 action.ActionType = V.ActionType;
-                vas.Add(action);
                 vas.Commit();
+                
 
                 return RedirectToAction("Index");
             }
@@ -90,27 +96,31 @@ namespace Volunteering.UI.Controllers
                 return View();
             }
         }
-
+        //[Authorize(Roles = "Ngo")]
         // GET: VoluntaryAction/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                vas.Delete(vas.GetById(id));
+                vas.Commit();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // POST: VoluntaryAction/Delete/5
         [HttpPost]
+        //[Authorize(Roles = "Ngo")]
         public ActionResult Delete(int id, VoluntaryAction V)
         {
-            try
-            {
-                vas.Delete(vas.GetById(V.ActionId));
-                vas.Commit();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+            
+            
                 return View();
-            }
+            
         }
     }
 }
