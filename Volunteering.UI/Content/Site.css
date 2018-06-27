@@ -65,3 +65,13 @@ textarea {
 .label-test {
     padding-left: 10px;
 }
+
+.dropdown {
+    position: relative;
+    margin-top: 12px;
+}
+
+.img-circle {
+    border-radius: 50%;
+    width: 40px;
+}
