@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Service.Pattern;
 using System.Web;
 using Volunteering.Data;
+using Volunteering.Data.Infrastructure;
 using Volunteering.Domain.Entities;
 using Volunteering.Domain.Enums;
 
@@ -11,10 +13,12 @@ namespace Volunteering.Service.Identity
 
     // TODO Refactor UserService Class 
 
-    public class UserService
+    public class UserService : Service<ApplicationUser>
     {
         // public ApplicationUserManager UserManager { get; set; }
 
+        private static IDatabaseFactory dbf = new DatabaseFactory();
+        private static IUnitOfWork ut = new UnitOfWork(dbf);
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -53,11 +57,16 @@ namespace Volunteering.Service.Identity
         }
 
 
-        public UserService()
+        public UserService() : base(ut)
         {
             ApplicationUserStore store = new ApplicationUserStore(new AppContext());
             UserManager = new ApplicationUserManager(store);
         }
+
+
+
+
+
 
 
         public void RegisterUser(string email, string password, EAccountType role, ref IdentityResult result)

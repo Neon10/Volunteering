@@ -15,13 +15,39 @@
     //    TODO ADD MANAGE CONTROLLER
 
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink(" ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "glyphicon glyphicon-user h3" }) </li>
-        <li>@Html.ActionLink("  " , "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Invitations" , @class= "glyphicon glyphicon-envelope h3" }) </li>
-        <li>@Html.ActionLink("  " , "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Messages" , @class= "glyphicon glyphicon-comment h3" }) </li>
-        <li>@Html.ActionLink("  " , "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Notfications" , @class= "glyphicon glyphicon-bell h3" }) </li>
-        <li> @Html.ActionLink(" ", "Logout", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = " glyphicon glyphicon-log-out h3" })</li>
+        <li>
+            <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span  class="glyphicon glyphicon-plus-sign h4"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            
+            <div class="dropdown">
+                @*<img src="https://www.w3schools.com/w3images/avatar2.png"  class="img-responsive img-circle dropdown-toggle" data-toggle="dropdown" alt="Cinque Terre">*@
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="https://www.w3schools.com/w3images/avatar2.png"  class="img-responsive img-circle"></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+            </div> 
+
+        </li>
+        <li>@Html.ActionLink(" ", "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Manage", @class = "glyphicon glyphicon-user h3"}) </li>
+        <li>@Html.ActionLink("  ", "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Invitations", @class = "glyphicon glyphicon-envelope h3"}) </li>
+        <li>@Html.ActionLink("  ", "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Messages", @class = "glyphicon glyphicon-comment h3"}) </li>
+        <li>@Html.ActionLink("  ", "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Notfications", @class = "glyphicon glyphicon-bell h3"}) </li>
+        <li> @Html.ActionLink(" ", "Logout", "Account", routeValues: null, htmlAttributes: new {id = "loginLink", @class = " glyphicon glyphicon-log-out h3"})</li>
 
     </ul>
+
+
 
 }
 
