@@ -1,6 +1,7 @@
 ﻿
 @using System.Web.Razor.Parser.SyntaxTree
 @using Microsoft.AspNet.Identity
+@*@if (User.IsInRole("Ngo"))*@
 @if (Request.IsAuthenticated)
 {
     //using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right " }))

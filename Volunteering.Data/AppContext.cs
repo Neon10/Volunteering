@@ -40,6 +40,7 @@ namespace Volunteering.Data
 
         public DbSet<FundraisingCampaign> Campaigns { get; set; }
         public DbSet<Donation> Donations { get; set; }
+        public DbSet<VoluntaryAction> VoluntaryActions { get; set; }
 
 
     }

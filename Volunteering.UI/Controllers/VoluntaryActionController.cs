@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Volunteering.Domain.Entities;
 using Volunteering.Domain.Enums;
@@ -7,19 +9,22 @@ using Volunteering.Service.Identity;
 
 namespace Volunteering.UI.Controllers
 {
+    [Authorize(Roles = "Ngo")]
     public class VoluntaryActionController : Controller
     {
 
         private VoluntaryActionService vas = new VoluntaryActionService();
         private  UserService us = new UserService();
-
+        [AllowAnonymous]
         // GET: VoluntaryAction
         public ActionResult Index()
         {
 
             return View(vas.GetAll());
+          
+           
         }
-
+        [AllowAnonymous]
         // GET: VoluntaryAction/Details/5
         public ActionResult Details(int id)
         {
@@ -28,7 +33,7 @@ namespace Volunteering.UI.Controllers
 
         // GET: VoluntaryAction/Create
         //[Authorize(Roles = "Ngo")]
-
+        
         public ActionResult Create()
         {
             return View();
@@ -70,7 +75,7 @@ namespace Volunteering.UI.Controllers
         }
 
         // POST: VoluntaryAction/Edit/5
-       //[Authorize(Roles ="Ngo")]
+        //[Authorize(Roles = "Ngo")]
         [HttpPost]
         public ActionResult Edit(int id, VoluntaryAction V)
         {
@@ -87,8 +92,7 @@ namespace Volunteering.UI.Controllers
                 action.MaxVolunteers = V.MaxVolunteers;
                 action.ActionType = V.ActionType;
                 vas.Commit();
-                
-
+                //return View();
                 return RedirectToAction("Index");
             }
             catch
@@ -117,10 +121,22 @@ namespace Volunteering.UI.Controllers
         //[Authorize(Roles = "Ngo")]
         public ActionResult Delete(int id, VoluntaryAction V)
         {
-            
-            
+
                 return View();
             
+        }
+
+        [AllowAnonymous]
+        // GET: VoluntaryAction/ListParticipants/5
+        public ActionResult ListParticipants(int id)
+        {
+
+
+            IEnumerable<Volunteer> participants = new List<Volunteer>();
+            participants = vas.GetById(id).Participants;
+            ViewBag.participants = participants;
+
+            return View(vas.GetById(id));
         }
     }
 }

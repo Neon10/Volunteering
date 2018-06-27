@@ -1,15 +1,19 @@
-﻿@model Volunteering.Domain.Entities.VoluntaryAction
+﻿@using System.Activities.Statements
+@using System.Web.Razor.Tokenizer
+@using Volunteering.Service
+@model Volunteering.Domain.Entities.VoluntaryAction
 
 @{
     ViewBag.Title = "Details";
 }
+
 
 <h2>Details</h2>
 
 <div>
     <h4>VoluntaryAction</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal well well-lg">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -64,18 +68,58 @@
         <dd>
             @Html.DisplayFor(model => model.ActionType)
         </dd>
-        
+
         <dt>
-            @Html.DisplayNameFor(model => model.CreatorNgo.UserName)
+            Organization Name
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CreatorNgo.UserName)
+            @*@Html.DisplayFor(model => model.CreatorNgo.UserName)*@
+            @Html.DisplayFor(modelItem =>
+                new @VoluntaryActionService().GetNgoCreatorById(Model.CreatorNgoId).Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Participants)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayName(new @VoluntaryActionService().GetById(Model.ActionId).Participants.Count.ToString())*@
+            @foreach (var action in new @VoluntaryActionService().GetAllActions())
+            {
+                if (action.ActionId==Model.ActionId)
+                {
+                    @Html.DisplayName(action.Participants.Count.ToString())
+                }
+                
+               
+
+            }
+            <br /><br />
+            @Html.ActionLink("See the list of participants", "ListParticipants", new { id = Model.ActionId })
         </dd>
 
+
+        @*<dd>
+                @Html.DisplayName(new @VoluntaryActionService().GetAllActions().Count().ToString())
+                @foreach (var action in new @VoluntaryActionService().GetAllActions())
+                {
+                    foreach (var VARIABLE in action.Participants)
+                    {
+                        @Html.DisplayName(VARIABLE.UserName)
+                    }
+
+                }
+                @Html.ActionLink("See the list of participants", "ListParticipants", new { id = Model.ActionId })
+            </dd>*@
+
+
+
+
     </dl>
+
 </div>
 <p>
+
     @Html.ActionLink("Edit", "Edit", new { id = Model.ActionId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
