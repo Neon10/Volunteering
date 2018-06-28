@@ -3,7 +3,7 @@ namespace Volunteering.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class aouatefMigration : DbMigration
+    public partial class rebuilddatabase : DbMigration
     {
         public override void Up()
         {
@@ -17,8 +17,11 @@ namespace Volunteering.Data.Migrations
                         StartDate = c.DateTime(nullable: false, precision: 0),
                         EndDate = c.DateTime(nullable: false, precision: 0),
                         TargetAmount = c.Int(nullable: false),
+                        OwnerNgoId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
                     })
-                .PrimaryKey(t => t.CampaignId);
+                .PrimaryKey(t => t.CampaignId)
+                .ForeignKey("dbo.AspNetUsers", t => t.OwnerNgoId, cascadeDelete: true)
+                .Index(t => t.OwnerNgoId);
             
             CreateTable(
                 "dbo.Donations",
@@ -26,20 +29,21 @@ namespace Volunteering.Data.Migrations
                     {
                         DonationId = c.Int(nullable: false, identity: true),
                         Amount = c.Int(nullable: false),
-                        Campaign_CampaignId = c.Int(),
-                        Volunteer_Id = c.String(maxLength: 128, storeType: "nvarchar"),
+                        VolunteerId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                        CampaignId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.DonationId)
-                .ForeignKey("dbo.FundraisingCampaigns", t => t.Campaign_CampaignId)
-                .ForeignKey("dbo.AspNetUsers", t => t.Volunteer_Id)
-                .Index(t => t.Campaign_CampaignId)
-                .Index(t => t.Volunteer_Id);
+                .ForeignKey("dbo.FundraisingCampaigns", t => t.CampaignId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.VolunteerId, cascadeDelete: true)
+                .Index(t => t.VolunteerId)
+                .Index(t => t.CampaignId);
             
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                        Name = c.String(unicode: false),
                         Email = c.String(maxLength: 256, storeType: "nvarchar"),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(unicode: false),
@@ -158,13 +162,14 @@ namespace Volunteering.Data.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.FundraisingCampaigns", "OwnerNgoId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Invitations", "Volunteer_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Invitations", "Action_ActionId", "dbo.VoluntaryActions");
             DropForeignKey("dbo.VoluntaryActionVolunteers", "Volunteer_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.VoluntaryActionVolunteers", "VoluntaryAction_ActionId", "dbo.VoluntaryActions");
             DropForeignKey("dbo.VoluntaryActions", "CreatorNgoId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Donations", "Volunteer_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Donations", "Campaign_CampaignId", "dbo.FundraisingCampaigns");
+            DropForeignKey("dbo.Donations", "VolunteerId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Donations", "CampaignId", "dbo.FundraisingCampaigns");
             DropIndex("dbo.VoluntaryActionVolunteers", new[] { "Volunteer_Id" });
             DropIndex("dbo.VoluntaryActionVolunteers", new[] { "VoluntaryAction_ActionId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -176,8 +181,9 @@ namespace Volunteering.Data.Migrations
             DropIndex("dbo.Invitations", new[] { "Action_ActionId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Donations", new[] { "Volunteer_Id" });
-            DropIndex("dbo.Donations", new[] { "Campaign_CampaignId" });
+            DropIndex("dbo.Donations", new[] { "CampaignId" });
+            DropIndex("dbo.Donations", new[] { "VolunteerId" });
+            DropIndex("dbo.FundraisingCampaigns", new[] { "OwnerNgoId" });
             DropTable("dbo.VoluntaryActionVolunteers");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");

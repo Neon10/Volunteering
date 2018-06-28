@@ -14,6 +14,7 @@ namespace Volunteering.UI.Controllers
         //===========================//
 
         private readonly FundraisingCampaignService fcService = new FundraisingCampaignService();
+        private readonly UserService us = new UserService();
 
 
 
@@ -50,29 +51,18 @@ namespace Volunteering.UI.Controllers
         // POST: FundraisingCampaign/Create
         [HttpPost]
         [Authorize(Roles = "Ngo")]
-        public ActionResult Create(FormCollection collection, FundraisingCampaign Fund)
-        {
-
-
-            
-                UserService us = new UserService();
-
-
+        public ActionResult Create(FundraisingCampaign Fund)
+        {            
                 FundraisingCampaign fund = new FundraisingCampaign() ;
                 Ngo ngo = us.UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()) as Ngo;
-
-
-
                 fund.Name = Fund.Name;
                 fund.Description = Fund.Description;
                 fund.StartDate = Fund.StartDate;
                 fund.EndDate = Fund.EndDate;
                 fund.TargetAmount = Fund.TargetAmount;
-            //fund.OwnerNgo = new Ngo {Email = "3a3ou3eh3ouuu3@3eh.hahaha", PasswordHash = "eeeeeeee", UserName = "3a3ou3eh3ouuu3@3eh.hahaha" };
-                fund.OwnerNgo = ngo;
+                fund.OwnerNgoId = User.Identity.GetUserId();
                 fcService.Add(fund);
                 fcService.Commit();
-
                 return RedirectToAction("Index");
            
             

@@ -214,6 +214,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VoluntaryActionController.cs" />
     <Compile Include="Controllers_Api\AccountController.cs" />
+    <Compile Include="Controllers_Api\FundraisingCampaignController.cs" />
     <Compile Include="Controllers_Api\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

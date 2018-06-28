@@ -29,6 +29,14 @@ namespace Volunteering.Service
             return res;
         }
 
+        public IQueryable<FundraisingCampaign> QueryCampaigns()
+        {
+
+            var res = ut.GetRepository<FundraisingCampaign>().GetAll().AsQueryable();
+
+            return res;
+        }
+
         // GET current amout of donations for provided Campaign id
         public int TotalDonations(int id)
         {

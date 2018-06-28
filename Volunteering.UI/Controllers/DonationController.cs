@@ -49,33 +49,40 @@ namespace Volunteering.UI.Controllers
 
         // POST: Donation/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection, Donation Don)
+        public ActionResult Create(Donation Don)
         {
-            try
-            {
-                UserService us = new UserService();
-
-
-                Donation don = new Donation();
-                Volunteer volunteer = us.UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()) as Volunteer;
-                FundraisingCampaign fund = new FundraisingCampaign();
-
-                don.Amount = Don.Amount;
-                don.Volunteer = volunteer;
-                don.Campaign = fund;
-
-                donService.Add(don);
-                donService.Commit();
+            Console.WriteLine(Don.CampaignId);
+            Console.WriteLine(Don.Amount);
+            return View();
 
 
 
+            //try
+            //{
+            //    UserService us = new UserService();
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+
+            //    Donation don = new Donation();
+            //    Volunteer volunteer = us.UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()) as Volunteer;
+            //    FundraisingCampaign fund = new FundraisingCampaign();
+
+
+            //    don.Amount = Don.Amount;
+            //    don.Volunteer = volunteer;
+            //    don.Campaign = fund;
+
+            //    donService.Add(don);
+            //    donService.Commit();
+
+
+
+
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         //===========================//

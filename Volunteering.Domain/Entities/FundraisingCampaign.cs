@@ -27,6 +27,8 @@ namespace Volunteering.Domain.Entities
         public int TargetAmount { get; set; }
 
         public Ngo OwnerNgo { get; set; }
+        [Required]
+        public string OwnerNgoId { get; set; }
 
 
         public ICollection<Donation> Donations { get; set; }

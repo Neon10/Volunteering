@@ -10,7 +10,11 @@ namespace Volunteering.Domain.Entities
         public int Amount { get; set; }
 
         public Volunteer Volunteer { get; set; }
+        [Required]
+        public string VolunteerId { get; set; }
         public FundraisingCampaign Campaign { get; set; }
+        [Required]
+        public int CampaignId { get; set; }
 
     }
 }

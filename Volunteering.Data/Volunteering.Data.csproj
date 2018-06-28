@@ -86,13 +86,9 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201806181815533_aouatefMigration.cs" />
-    <Compile Include="Migrations\201806181815533_aouatefMigration.Designer.cs">
-      <DependentUpon>201806181815533_aouatefMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.cs" />
-    <Compile Include="Migrations\201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.Designer.cs">
-      <DependentUpon>201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.cs</DependentUpon>
+    <Compile Include="Migrations\201806280105053_rebuilddatabase.cs" />
+    <Compile Include="Migrations\201806280105053_rebuilddatabase.Designer.cs">
+      <DependentUpon>201806280105053_rebuilddatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,11 +107,8 @@
     <Folder Include="Configurations\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806181815533_aouatefMigration.resx">
-      <DependentUpon>201806181815533_aouatefMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.resx">
-      <DependentUpon>201806010355119_Update FundraisingCompaign %28add foreign key ngo%29.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806280105053_rebuilddatabase.resx">
+      <DependentUpon>201806280105053_rebuilddatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

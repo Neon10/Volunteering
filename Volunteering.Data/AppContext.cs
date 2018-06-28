@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using MySql.Data.Entity;
 using System.Data.Entity;
+using System.Linq;
 using Volunteering.Data.Conventions;
 using Volunteering.Domain.Entities;
+using Volunteering.Domain.Enums;
 
 namespace Volunteering.Data
 {
@@ -16,16 +18,19 @@ namespace Volunteering.Data
             //   ------ Initializing Roles DataBase -------//
             //=============================================//
 
-            //IdentityRole adminRole = new IdentityRole(EAccountType.Administrator.ToString());
-            //IdentityRole ngoRole = new IdentityRole(EAccountType.Ngo.ToString());
-            //IdentityRole volunteerRole = new IdentityRole(EAccountType.Volunteer.ToString());
+            if (Roles.Count() == 0) { 
+            IdentityRole adminRole = new IdentityRole(EAccountType.Administrator.ToString());
+            IdentityRole ngoRole = new IdentityRole(EAccountType.Ngo.ToString());
+            IdentityRole volunteerRole = new IdentityRole(EAccountType.Volunteer.ToString());
 
-            //Roles.Add(adminRole);
-            //Roles.Add(ngoRole);
-            //Roles.Add(volunteerRole);
+            Roles.Add(adminRole);
+            Roles.Add(ngoRole);
+            Roles.Add(volunteerRole);
+            }
 
             DbModelBuilder model = new DbModelBuilder();
             model.Conventions.Add(new DateTime2Convention());
+
 
         }
 
