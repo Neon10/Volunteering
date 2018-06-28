@@ -9,6 +9,10 @@ namespace Volunteering.Domain.Entities
 {
     public class VoluntaryAction
     {
+        public VoluntaryAction()
+        {
+            Participants= new List<Volunteer>();
+        }
         [Key]
         public int ActionId { get; set; }
 

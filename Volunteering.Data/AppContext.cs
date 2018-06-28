@@ -18,15 +18,16 @@ namespace Volunteering.Data
             //   ------ Initializing Roles DataBase -------//
             //=============================================//
 
-            if (Roles.Count() == 0) { 
-            IdentityRole adminRole = new IdentityRole(EAccountType.Administrator.ToString());
-            IdentityRole ngoRole = new IdentityRole(EAccountType.Ngo.ToString());
-            IdentityRole volunteerRole = new IdentityRole(EAccountType.Volunteer.ToString());
+            //if (Roles.Count() == 0)
+            //{
+            //    IdentityRole adminRole = new IdentityRole(EAccountType.Administrator.ToString());
+            //    IdentityRole ngoRole = new IdentityRole(EAccountType.Ngo.ToString());
+            //    IdentityRole volunteerRole = new IdentityRole(EAccountType.Volunteer.ToString());
 
-            Roles.Add(adminRole);
-            Roles.Add(ngoRole);
-            Roles.Add(volunteerRole);
-            }
+            //    Roles.Add(adminRole);
+            //    Roles.Add(ngoRole);
+            //    Roles.Add(volunteerRole);
+            //}
 
             DbModelBuilder model = new DbModelBuilder();
             model.Conventions.Add(new DateTime2Convention());

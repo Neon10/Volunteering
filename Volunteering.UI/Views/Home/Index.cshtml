@@ -27,7 +27,7 @@
                  <br />
                  <span>From<span> </span></span><span>@action.StartDate.ToString("d")<span> </span></span><span>  </span><span>To<span> </span></span><span>@action.EndDate.ToString("d")</span>
              </li>
-                    <br />
+                   
                     // @Html.ActionLink(@action.Address, "Details", "VoluntaryAction", new { id = action.ActionId })
                 }
             </ul>
@@ -38,7 +38,7 @@
 </div>
         
 
-        <div class=" well well-sm">
+        <div class="well well-sm">
             <label class="glyphicon glyphicon-euro h3"> Recent Donations:</label>
             <hr/>
 
@@ -51,15 +51,30 @@
 
 
     <div class="col-md-9   well well-sm">
-        <h3 align=center>Google Map Below</h3>
 
-        <hr />
-        <div class="jumbotron">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+        <div class="well well-sm">
+            <fieldset>  
+                @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@  
+  
+                <div id="googleMap" style="height:500px;width:100%;" ></div>  
+                <script>
+                    function myMap() {
+                        
+                        var myCenter = new google.maps.LatLng(36.8064948, 10.181531599999971);
+                        var mapProp = { center: myCenter, zoom: 8, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+                        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                        var marker = new google.maps.Marker({ position: myCenter });
+                        var marker1 = new google.maps.Marker({ position: new google.maps.LatLng(37.2767579, 9.864160900000002) });
+                        var marker2 = new google.maps.Marker({ position: new google.maps.LatLng(37.21706989634869, 10.059717490333583) });
+                        marker.setMap(map);
+                        marker1.setMap(map);
+                        marker2.setMap(map);
+                       
+                    }
+                </script>  
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8BtMRdu9tvtEaHDsoRFKafb3eDeiUcGA&callback=myMap"></script>  
+            </fieldset>  
         </div>
     </div>
 
@@ -85,3 +100,8 @@
 <br />
 <br />
 <br />
+@section scripts
+{
+    
+
+}

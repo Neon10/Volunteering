@@ -13,7 +13,7 @@ namespace Volunteering.Domain.Dtos
         public VoluntaryActionDto()
         {
 
-            Participants =new List<VolunteerDto>();
+            Participants =new List<UserDto>();
 
 
         }
@@ -38,7 +38,7 @@ namespace Volunteering.Domain.Dtos
 
         public ActionType ActionType { get; set; }
 
-        public ICollection<VolunteerDto> Participants { get; set; }
+        public ICollection<UserDto> Participants { get; set; }
 
 
        

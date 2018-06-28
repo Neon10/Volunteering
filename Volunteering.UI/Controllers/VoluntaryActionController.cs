@@ -138,5 +138,29 @@ namespace Volunteering.UI.Controllers
 
             return View(vas.GetById(id));
         }
+
+
+
+        // POST: VoluntaryAction/Participate
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Participate(int id)
+        {
+            vas.Participate(id,User.Identity.GetUserId());
+
+            return RedirectToAction("Index");
+        }
+
+
+        // POST: VoluntaryAction/Participate
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult CancelParticipation(int id)
+        {
+
+            vas.Participate(id, User.Identity.GetUserId());
+
+            return RedirectToAction("Index");
+        }
     }
 }
