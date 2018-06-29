@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -17,10 +18,21 @@ namespace Volunteering.UI.Controllers
         private  UserService us = new UserService();
         [AllowAnonymous]
         // GET: VoluntaryAction
-        public ActionResult Index()
+        public ActionResult Index(string searchName , string searchAddress )
         {
+            List<VoluntaryAction> actions = Session["actions"] as List<VoluntaryAction>;
+            actions = vas.GetAll().ToList();
+            if ((!String.IsNullOrEmpty(searchName)) || (!String.IsNullOrEmpty(searchAddress)))
+            {
+                actions = actions.Where(m => m.Name.Contains(searchName)).Where(o => o.Address.Contains(searchAddress))
+                    .ToList();
+            }
+            return View(actions);
 
-            return View(vas.GetAll());
+
+
+
+            //return View(vas.GetAll());
           
            
         }

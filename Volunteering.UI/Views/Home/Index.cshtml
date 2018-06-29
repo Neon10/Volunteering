@@ -1,5 +1,8 @@
-﻿@using Volunteering.Service
-
+﻿@using System.Activities.Statements
+@using Jmelosegui.Mvc.GoogleMap
+@using Volunteering.Domain.Entities
+@using Volunteering.Service
+@model String
 @{
     ViewBag.Title = "Index";
 }
@@ -14,33 +17,34 @@
 <div class="row">
     <div class="col-md-3  well well-sm">
 
-        <div class=" well well-sm">
+        <div class="well well-sm">
             <label class="glyphicon glyphicon-plus-sign h3"> Recent Actions:</label>
             <hr />
             <ul>
                 @foreach (var action in new @VoluntaryActionService().GetRecentActions())
-            {<li>
+            {
+                    <li>
 
-                 <a href="@Url.Action("Details", "VoluntaryAction", new {id =@action.ActionId})">
-                     @action.Name
-                 </a>
-                 <br />
-                 <span>From<span> </span></span><span>@action.StartDate.ToString("d")<span> </span></span><span>  </span><span>To<span> </span></span><span>@action.EndDate.ToString("d")</span>
-             </li>
-                   
+                        <a href="@Url.Action("Details", "VoluntaryAction", new {id =@action.ActionId})">
+                            @action.Name
+                        </a>
+                        <br />
+                        <span>From<span> </span></span><span>@action.StartDate.ToString("d")<span> </span></span><span>  </span><span>To<span> </span></span><span>@action.EndDate.ToString("d")</span>
+                    </li>
+
                     // @Html.ActionLink(@action.Address, "Details", "VoluntaryAction", new { id = action.ActionId })
                 }
             </ul>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-</div>
-        
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+
 
         <div class="well well-sm">
             <label class="glyphicon glyphicon-euro h3"> Recent Donations:</label>
-            <hr/>
+            <hr />
 
             <br />
             <br />
@@ -53,28 +57,57 @@
     <div class="col-md-9   well well-sm">
 
         <div class="well well-sm">
-            <fieldset>  
-                @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@  
-  
-                <div id="googleMap" style="height:500px;width:100%;" ></div>  
-                <script>
-                    function myMap() {
-                        
-                        var myCenter = new google.maps.LatLng(36.8064948, 10.181531599999971);
-                        var mapProp = { center: myCenter, zoom: 8, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
-                        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-                        var marker = new google.maps.Marker({ position: myCenter });
-                        var marker1 = new google.maps.Marker({ position: new google.maps.LatLng(37.2767579, 9.864160900000002) });
-                        var marker2 = new google.maps.Marker({ position: new google.maps.LatLng(37.21706989634869, 10.059717490333583) });
-                        marker.setMap(map);
-                        marker1.setMap(map);
-                        marker2.setMap(map);
-                       
-                    }
-                </script>  
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8BtMRdu9tvtEaHDsoRFKafb3eDeiUcGA&callback=myMap"></script>  
-            </fieldset>  
+
+
+
+            @*<div class="col-md-12">
+                @(Html.GoogleMap()
+                      .Name("map")
+                      .Center(c => c.Address("Tunisia"))
+                      .Zoom(6)
+                      .MarkersGeocoding(true)
+                      .Markers(m => m.Add().Title("soussa").Address("Sousse"))
+                      .Markers(m => m.Add().Title("tunis").Address("Tunis"))
+                      .Height(500)
+                      .ApiKey("AIzaSyCNqmFEfZ3sU-KMeiVqobFVg1lfQb0jJGg"))
+    
+            </div>
+            <br />
+            <form class="form-horizontal" role="form">
+                <h4> Google Map Settings</h4>
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label" style="white-space: nowrap;">Address: </label>
+                    <div class="col-sm-5">
+                        @Html.TextBox("address", Model, new { @class = "form-control", id = "address" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Apply</button>
+                    </div>
+                </div>
+           </form>*@
+
+
+            <fieldset>
+                    <div id="googleMap" style="height:500px;width:100%;" ></div>
+                    <script>
+                        function myMap() {
+
+                            var myCenter = new google.maps.LatLng(36.8064948, 10.181531599999971);
+                            var mapProp = { center: myCenter, zoom: 8, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+                            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                            var marker = new google.maps.Marker({ position: myCenter });
+                            var marker1 = new google.maps.Marker({ position: new google.maps.LatLng(37.2767579, 9.864160900000002) });
+                            var marker2 = new google.maps.Marker({ position: new google.maps.LatLng(37.21706989634869, 10.059717490333583) });
+                            marker.setMap(map);
+                            marker1.setMap(map);
+                            marker2.setMap(map);
+
+                        }
+                    </script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8BtMRdu9tvtEaHDsoRFKafb3eDeiUcGA&callback=myMap"></script>
+                </fieldset>
         </div>
     </div>
 
@@ -102,6 +135,5 @@
 <br />
 @section scripts
 {
-    
-
+    @(Html.GoogleMap().ScriptRegistrar())
 }

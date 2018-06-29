@@ -6,7 +6,27 @@
 }
 
 <h2>Index</h2>
-
+@*Searchhhhhhhhhhhhhhh*@
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+                <div>
+                    Action Name: @Html.TextBox("searchName")
+                    Address: @Html.TextBox("searchAddress")
+                </div>
+               
+                    
+                
+            </td>
+            <td>
+                <input type="submit" value="Search" id="submit" />
+            </td>
+        </tr>
+    </table>
+}
+@*////////////////////////*@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
