@@ -3,7 +3,7 @@ namespace Volunteering.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class rebuilddatabase : DbMigration
+    public partial class identityIntergrationTest : DbMigration
     {
         public override void Up()
         {
@@ -11,32 +11,24 @@ namespace Volunteering.Data.Migrations
                 "dbo.FundraisingCampaigns",
                 c => new
                     {
-                        CampaignId = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, unicode: false),
-                        Description = c.String(nullable: false, unicode: false),
-                        StartDate = c.DateTime(nullable: false, precision: 0),
-                        EndDate = c.DateTime(nullable: false, precision: 0),
-                        TargetAmount = c.Int(nullable: false),
-                        OwnerNgoId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                        Id = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                        Name = c.String(nullable: false, maxLength: 256, storeType: "nvarchar"),
                     })
-                .PrimaryKey(t => t.CampaignId)
-                .ForeignKey("dbo.AspNetUsers", t => t.OwnerNgoId, cascadeDelete: true)
-                .Index(t => t.OwnerNgoId);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
             CreateTable(
                 "dbo.Donations",
                 c => new
                     {
-                        DonationId = c.Int(nullable: false, identity: true),
-                        Amount = c.Int(nullable: false),
-                        VolunteerId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
-                        CampaignId = c.Int(nullable: false),
+                        UserId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                        RoleId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
                     })
-                .PrimaryKey(t => t.DonationId)
-                .ForeignKey("dbo.FundraisingCampaigns", t => t.CampaignId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.VolunteerId, cascadeDelete: true)
-                .Index(t => t.VolunteerId)
-                .Index(t => t.CampaignId);
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -72,39 +64,6 @@ namespace Volunteering.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.Invitations",
-                c => new
-                    {
-                        InvitationId = c.Int(nullable: false, identity: true),
-                        Status = c.Int(nullable: false),
-                        Action_ActionId = c.Int(),
-                        Volunteer_Id = c.String(maxLength: 128, storeType: "nvarchar"),
-                    })
-                .PrimaryKey(t => t.InvitationId)
-                .ForeignKey("dbo.VoluntaryActions", t => t.Action_ActionId)
-                .ForeignKey("dbo.AspNetUsers", t => t.Volunteer_Id)
-                .Index(t => t.Action_ActionId)
-                .Index(t => t.Volunteer_Id);
-            
-            CreateTable(
-                "dbo.VoluntaryActions",
-                c => new
-                    {
-                        ActionId = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, unicode: false),
-                        Address = c.String(nullable: false, unicode: false),
-                        Description = c.String(nullable: false, unicode: false),
-                        StartDate = c.DateTime(nullable: false, precision: 0),
-                        EndDate = c.DateTime(nullable: false, precision: 0),
-                        MaxVolunteers = c.Int(nullable: false),
-                        ActionType = c.Int(nullable: false),
-                        CreatorNgoId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
-                    })
-                .PrimaryKey(t => t.ActionId)
-                .ForeignKey("dbo.AspNetUsers", t => t.CreatorNgoId, cascadeDelete: true)
-                .Index(t => t.CreatorNgoId);
             
             CreateTable(
                 "dbo.AspNetUserLogins",
@@ -162,31 +121,12 @@ namespace Volunteering.Data.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.FundraisingCampaigns", "OwnerNgoId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Invitations", "Volunteer_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Invitations", "Action_ActionId", "dbo.VoluntaryActions");
-            DropForeignKey("dbo.VoluntaryActionVolunteers", "Volunteer_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.VoluntaryActionVolunteers", "VoluntaryAction_ActionId", "dbo.VoluntaryActions");
-            DropForeignKey("dbo.VoluntaryActions", "CreatorNgoId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Donations", "VolunteerId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Donations", "CampaignId", "dbo.FundraisingCampaigns");
-            DropIndex("dbo.VoluntaryActionVolunteers", new[] { "Volunteer_Id" });
-            DropIndex("dbo.VoluntaryActionVolunteers", new[] { "VoluntaryAction_ActionId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.VoluntaryActions", new[] { "CreatorNgoId" });
-            DropIndex("dbo.Invitations", new[] { "Volunteer_Id" });
-            DropIndex("dbo.Invitations", new[] { "Action_ActionId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Donations", new[] { "CampaignId" });
-            DropIndex("dbo.Donations", new[] { "VolunteerId" });
-            DropIndex("dbo.FundraisingCampaigns", new[] { "OwnerNgoId" });
-            DropTable("dbo.VoluntaryActionVolunteers");
-            DropTable("dbo.AspNetRoles");
-            DropTable("dbo.AspNetUserRoles");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.VoluntaryActions");
             DropTable("dbo.Invitations");
