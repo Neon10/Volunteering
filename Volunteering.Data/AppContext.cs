@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using MySql.Data.Entity;
 using System.Data.Entity;
-using System.Linq;
 using Volunteering.Data.Conventions;
 using Volunteering.Domain.Entities;
-using Volunteering.Domain.Enums;
 
 namespace Volunteering.Data
 {
