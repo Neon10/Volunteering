@@ -86,29 +86,9 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201805171619343_testMysqlCon1.cs" />
-    <Compile Include="Migrations\201805171619343_testMysqlCon1.Designer.cs">
-      <DependentUpon>201805171619343_testMysqlCon1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805201636474_identityIntergrationTest.cs" />
-    <Compile Include="Migrations\201805201636474_identityIntergrationTest.Designer.cs">
-      <DependentUpon>201805201636474_identityIntergrationTest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805201937049_NewApplicationUserSubClasses.cs" />
-    <Compile Include="Migrations\201805201937049_NewApplicationUserSubClasses.Designer.cs">
-      <DependentUpon>201805201937049_NewApplicationUserSubClasses.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805290209290_AddedDonationsAndCampaignTables.cs" />
-    <Compile Include="Migrations\201805290209290_AddedDonationsAndCampaignTables.Designer.cs">
-      <DependentUpon>201805290209290_AddedDonationsAndCampaignTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805291554264_AddedInvitationAndActionModels.cs" />
-    <Compile Include="Migrations\201805291554264_AddedInvitationAndActionModels.Designer.cs">
-      <DependentUpon>201805291554264_AddedInvitationAndActionModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805301011363_adding address attribute.cs" />
-    <Compile Include="Migrations\201805301011363_adding address attribute.Designer.cs">
-      <DependentUpon>201805301011363_adding address attribute.cs</DependentUpon>
+    <Compile Include="Migrations\201806152355273_ModifyInvit.cs" />
+    <Compile Include="Migrations\201806152355273_ModifyInvit.Designer.cs">
+      <DependentUpon>201806152355273_ModifyInvit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,23 +107,8 @@
     <Folder Include="Configurations\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805171619343_testMysqlCon1.resx">
-      <DependentUpon>201805171619343_testMysqlCon1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805201636474_identityIntergrationTest.resx">
-      <DependentUpon>201805201636474_identityIntergrationTest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805201937049_NewApplicationUserSubClasses.resx">
-      <DependentUpon>201805201937049_NewApplicationUserSubClasses.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805290209290_AddedDonationsAndCampaignTables.resx">
-      <DependentUpon>201805290209290_AddedDonationsAndCampaignTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805291554264_AddedInvitationAndActionModels.resx">
-      <DependentUpon>201805291554264_AddedInvitationAndActionModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805301011363_adding address attribute.resx">
-      <DependentUpon>201805301011363_adding address attribute.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806152355273_ModifyInvit.resx">
+      <DependentUpon>201806152355273_ModifyInvit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

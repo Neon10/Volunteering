@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Volunteering.Domain.Entities;
 using Volunteering.Domain.Enums;
 using Volunteering.Service;
@@ -20,8 +22,29 @@ namespace Volunteering.UI.Controllers
         // GET: VoluntaryAction/Details/5
         public ActionResult Details(int id)
         {
-            return View(vas.GetById(id));
+            InvitationService I = new InvitationService();
+
+            IEnumerable<Volunteer> Vol = I.GetInvites();
+           IEnumerable<Invitation> INVITES = I.GetAllInvites();
+            IEnumerable <Invitation> IA= I.GetInvitOfSelectedAction(id);
+
+            foreach (var item in IA)
+            {
+
+                ViewBag.SiA = item.VolunteerId;
+               
+            }
+
+            ViewBag.actionId = id;
+            ViewBag.invitations = INVITES;
+            ViewBag.VolNotInvited = Vol;
+            ViewBag.VolInvited = I.VolInvited(id);
+
+             return View(vas.GetById(id));
+            
+
         }
+        
 
         // GET: VoluntaryAction/Create
         [Authorize(Roles = "Ngo")]
@@ -89,6 +112,12 @@ namespace Volunteering.UI.Controllers
             {
                 return View();
             }
+        }
+
+        public VoluntaryAction GetA(int id, VoluntaryAction V)
+        {
+            VoluntaryAction action = new VoluntaryAction();
+            return action = vas.GetById(V.ActionId);
         }
 
         // GET: VoluntaryAction/Delete/5

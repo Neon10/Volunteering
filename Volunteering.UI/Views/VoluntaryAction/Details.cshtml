@@ -1,12 +1,16 @@
-﻿@model Volunteering.Domain.Entities.VoluntaryAction
+﻿@model  Volunteering.Domain.Entities.VoluntaryAction
+
 
 @{
     ViewBag.Title = "Details";
+    
 }
+
 
 <h2>Details</h2>
 
-<div>
+<div class="row">
+    <div class="col-md-8 well well-lg" >
     <h4>VoluntaryAction</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -59,6 +63,102 @@
         </dd>
 
     </dl>
+</div>
+    <div class="col-md-4 well well-lg">
+        <h3>Peoples to invite</h3>
+        
+        <table>
+
+            
+    @foreach (var item in ViewBag.VolNotInvited)
+    {
+        //foreach (var i in ViewBag.invitations)
+        //{
+
+        <tr>
+            <td>
+
+
+                <span> @item.Email</span>
+
+
+            </td>
+
+
+
+            @*//if ((@ViewBag.invitations.VolunteerId == @item.Id) && (@ViewBag.invitations.Count == 0))
+            //{*@
+
+
+            <td>
+              
+                @using (Html.BeginForm("InvitCreate", "Invitation", new { idA = @ViewBag.actionId, idV = @item.Id }, FormMethod.Post, null))
+
+                {
+                    
+
+                    <input type="submit" value="Inviter"  class="btn btn-success"/>
+
+                }
+            </td>
+            
+
+
+          
+
+
+
+            
+
+            
+        </tr>
+                    }
+                
+            
+
+
+
+
+
+              
+
+            
+        </table>
+
+    </div>
+    <div class="col-md-4 well well-lg">
+        <h3>Peoples alreday invited</h3>
+        <table>
+            
+            @foreach (var item in ViewBag.VolInvited)
+            {
+                <tr>
+                    <td>
+                       
+
+                        <span> @item.Email</span>
+                        </td>
+
+                    <td>
+
+
+                        @using (Html.BeginForm("DeleteInvit", "Invitation", new { idA = @ViewBag.actionId, idV = @item.Id }, FormMethod.Post, null))
+
+                {
+                            <input type="submit" value="Annuler l'invitation"  class="btn btn-danger" />
+                        }
+
+                    </td>
+                    </tr>
+            }
+                    </table>
+        </div>
+                    <div>
+    @*@Html.Partial("_Vlist")*@
+    
+     
+
+</div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ActionId }) |

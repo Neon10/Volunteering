@@ -57,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DtoInvitation\InvitationDto.cs" />
+    <Compile Include="DtoInvitation\VoluntaryActionDtoU.cs" />
+    <Compile Include="DtoInvitation\VolunteerDtoU.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Donation.cs" />
     <Compile Include="Entities\FundraisingCampaign.cs" />

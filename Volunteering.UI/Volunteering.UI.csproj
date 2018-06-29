@@ -213,6 +213,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VoluntaryActionController.cs" />
     <Compile Include="Controllers_Api\AccountController.cs" />
+    <Compile Include="Controllers_Api\InvitationController.cs" />
     <Compile Include="Controllers_Api\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -245,6 +246,9 @@
     <Content Include="Views\VoluntaryAction\Index.cshtml" />
     <Content Include="Views\VoluntaryAction\Create.cshtml" />
     <Content Include="Views\VoluntaryAction\Edit.cshtml" />
+    <Content Include="Views\VoluntaryAction\_Vlist.cshtml" />
+    <Content Include="Views\Invitation\InvitCreate.cshtml" />
+    <Content Include="Views\Invitation\DeleteInvit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -254,12 +258,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Invitation\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Service.Pattern\Service.Pattern.csproj">
       <Project>{978ecce0-90c1-45d2-91ad-456d1c18ff6a}</Project>
       <Name>Service.Pattern</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Volunteering.Data\Volunteering.Data.csproj">
+      <Project>{61B6B4DB-05BC-492F-BEA4-26915282A272}</Project>
+      <Name>Volunteering.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Volunteering.Domain\Volunteering.Domain.csproj">
       <Project>{CC20226F-10B9-4EB4-A1BD-D660666AD3F8}</Project>
