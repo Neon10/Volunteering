@@ -2,7 +2,10 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Service.Pattern;
+using System.Linq;
 using System.Web;
+using System.Web.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Volunteering.Data;
 using Volunteering.Data.Infrastructure;
 using Volunteering.Domain.Entities;
@@ -22,7 +25,7 @@ namespace Volunteering.Service.Identity
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private readonly AppContext _context = new AppContext();
 
         public ApplicationSignInManager SignInManager
         {
@@ -99,8 +102,12 @@ namespace Volunteering.Service.Identity
         }
 
 
-
-
+        public string GetUserRole(string userId)
+        {
+            ApplicationUser u = _userManager.FindById(userId);
+            
+            return Roles.GetRolesForUser(u.UserName).First();
+        }
 
 
     }
