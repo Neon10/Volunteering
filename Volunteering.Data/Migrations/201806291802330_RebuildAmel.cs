@@ -3,7 +3,7 @@ namespace Volunteering.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class rebuilddatabase : DbMigration
+    public partial class RebuildAmel : DbMigration
     {
         public override void Up()
         {
@@ -74,37 +74,25 @@ namespace Volunteering.Data.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.Invitations",
+                "dbo.Discussions",
                 c => new
                     {
-                        InvitationId = c.Int(nullable: false, identity: true),
-                        Status = c.Int(nullable: false),
-                        Action_ActionId = c.Int(),
-                        Volunteer_Id = c.String(maxLength: 128, storeType: "nvarchar"),
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(nullable: false, unicode: false),
+                        Content = c.String(nullable: false, unicode: false),
+                        CreationDate = c.DateTime(nullable: false, precision: 0),
+                        IsViewed = c.Boolean(nullable: false),
+                        SenderId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                        RecipientId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                        ApplicationUser_Id = c.String(maxLength: 128, storeType: "nvarchar"),
                     })
-                .PrimaryKey(t => t.InvitationId)
-                .ForeignKey("dbo.VoluntaryActions", t => t.Action_ActionId)
-                .ForeignKey("dbo.AspNetUsers", t => t.Volunteer_Id)
-                .Index(t => t.Action_ActionId)
-                .Index(t => t.Volunteer_Id);
-            
-            CreateTable(
-                "dbo.VoluntaryActions",
-                c => new
-                    {
-                        ActionId = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, unicode: false),
-                        Address = c.String(nullable: false, unicode: false),
-                        Description = c.String(nullable: false, unicode: false),
-                        StartDate = c.DateTime(nullable: false, precision: 0),
-                        EndDate = c.DateTime(nullable: false, precision: 0),
-                        MaxVolunteers = c.Int(nullable: false),
-                        ActionType = c.Int(nullable: false),
-                        CreatorNgoId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
-                    })
-                .PrimaryKey(t => t.ActionId)
-                .ForeignKey("dbo.AspNetUsers", t => t.CreatorNgoId, cascadeDelete: true)
-                .Index(t => t.CreatorNgoId);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.RecipientId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.SenderId, cascadeDelete: true)
+                .Index(t => t.SenderId)
+                .Index(t => t.RecipientId)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.AspNetUserLogins",
@@ -126,10 +114,60 @@ namespace Volunteering.Data.Migrations
                         RoleId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.VoluntaryActions",
+                c => new
+                    {
+                        ActionId = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, unicode: false),
+                        Address = c.String(nullable: false, unicode: false),
+                        Description = c.String(nullable: false, unicode: false),
+                        StartDate = c.DateTime(nullable: false, precision: 0),
+                        EndDate = c.DateTime(nullable: false, precision: 0),
+                        MaxVolunteers = c.Int(nullable: false),
+                        ActionType = c.Int(nullable: false),
+                        CreatorNgoId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                    })
+                .PrimaryKey(t => t.ActionId)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatorNgoId, cascadeDelete: true)
+                .Index(t => t.CreatorNgoId);
+            
+            CreateTable(
+                "dbo.Replies",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Content = c.String(nullable: false, unicode: false),
+                        IsNew = c.Boolean(nullable: false),
+                        Date = c.DateTime(nullable: false, precision: 0),
+                        SenderId = c.String(nullable: false, maxLength: 128, storeType: "nvarchar"),
+                        DiscussionId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Discussions", t => t.DiscussionId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.SenderId, cascadeDelete: true)
+                .Index(t => t.SenderId)
+                .Index(t => t.DiscussionId);
+            
+            CreateTable(
+                "dbo.Invitations",
+                c => new
+                    {
+                        InvitationId = c.Int(nullable: false, identity: true),
+                        Status = c.Int(nullable: false),
+                        Action_ActionId = c.Int(),
+                        Volunteer_Id = c.String(maxLength: 128, storeType: "nvarchar"),
+                    })
+                .PrimaryKey(t => t.InvitationId)
+                .ForeignKey("dbo.VoluntaryActions", t => t.Action_ActionId)
+                .ForeignKey("dbo.AspNetUsers", t => t.Volunteer_Id)
+                .Index(t => t.Action_ActionId)
+                .Index(t => t.Volunteer_Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -158,27 +196,37 @@ namespace Volunteering.Data.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.FundraisingCampaigns", "OwnerNgoId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Invitations", "Volunteer_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Invitations", "Action_ActionId", "dbo.VoluntaryActions");
+            DropForeignKey("dbo.Donations", "VolunteerId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Discussions", "SenderId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Replies", "SenderId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Replies", "DiscussionId", "dbo.Discussions");
+            DropForeignKey("dbo.Discussions", "RecipientId", "dbo.AspNetUsers");
             DropForeignKey("dbo.VoluntaryActionVolunteers", "Volunteer_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.VoluntaryActionVolunteers", "VoluntaryAction_ActionId", "dbo.VoluntaryActions");
             DropForeignKey("dbo.VoluntaryActions", "CreatorNgoId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Donations", "VolunteerId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Discussions", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Donations", "CampaignId", "dbo.FundraisingCampaigns");
             DropIndex("dbo.VoluntaryActionVolunteers", new[] { "Volunteer_Id" });
             DropIndex("dbo.VoluntaryActionVolunteers", new[] { "VoluntaryAction_ActionId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Invitations", new[] { "Volunteer_Id" });
+            DropIndex("dbo.Invitations", new[] { "Action_ActionId" });
+            DropIndex("dbo.Replies", new[] { "DiscussionId" });
+            DropIndex("dbo.Replies", new[] { "SenderId" });
+            DropIndex("dbo.VoluntaryActions", new[] { "CreatorNgoId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.VoluntaryActions", new[] { "CreatorNgoId" });
-            DropIndex("dbo.Invitations", new[] { "Volunteer_Id" });
-            DropIndex("dbo.Invitations", new[] { "Action_ActionId" });
+            DropIndex("dbo.Discussions", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.Discussions", new[] { "RecipientId" });
+            DropIndex("dbo.Discussions", new[] { "SenderId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Donations", new[] { "CampaignId" });
@@ -186,10 +234,12 @@ namespace Volunteering.Data.Migrations
             DropIndex("dbo.FundraisingCampaigns", new[] { "OwnerNgoId" });
             DropTable("dbo.VoluntaryActionVolunteers");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Invitations");
+            DropTable("dbo.Replies");
+            DropTable("dbo.VoluntaryActions");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.VoluntaryActions");
-            DropTable("dbo.Invitations");
+            DropTable("dbo.Discussions");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Donations");

@@ -63,11 +63,13 @@
     <Compile Include="Dtos\VoluntaryActionDto.cs" />
     <Compile Include="Dtos\VolunteerDto.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Discussion.cs" />
     <Compile Include="Entities\Donation.cs" />
     <Compile Include="Entities\FundraisingCampaign.cs" />
     <Compile Include="Entities\Invitation.cs" />
     <Compile Include="Entities\Ngo.cs" />
     <Compile Include="Entities\Notifcation.cs" />
+    <Compile Include="Entities\Reply.cs" />
     <Compile Include="Entities\VoluntaryAction.cs" />
     <Compile Include="Entities\Volunteer.cs" />
     <Compile Include="Enums\ActionType.cs" />

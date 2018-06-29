@@ -7,13 +7,13 @@ namespace Volunteering.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class rebuilddatabase : IMigrationMetadata
+    public sealed partial class RebuildAmel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(rebuilddatabase));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RebuildAmel));
         
         string IMigrationMetadata.Id
         {
-            get { return "201806280105053_rebuilddatabase"; }
+            get { return "201806291802330_RebuildAmel"; }
         }
         
         string IMigrationMetadata.Source
