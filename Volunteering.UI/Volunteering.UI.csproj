@@ -239,6 +239,7 @@
     <Compile Include="Controllers\VoluntaryActionController.cs" />
     <Compile Include="Controllers_Api\AccountController.cs" />
     <Compile Include="Controllers_Api\FundraisingCampaignController.cs" />
+    <Compile Include="Controllers_Api\InvitationController.cs" />
     <Compile Include="Controllers_Api\TestController.cs" />
     <Compile Include="Controllers_Api\VoluntaryActionController.cs" />
     <Compile Include="Global.asax.cs">

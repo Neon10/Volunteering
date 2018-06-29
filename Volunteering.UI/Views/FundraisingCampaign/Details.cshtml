@@ -55,32 +55,103 @@
         </dl>
 
 
-@using (Html.BeginForm("Create", "Donation",FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
+        @using (Html.BeginForm("Create", "Donation", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Donation</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.Label("Amount",  htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBox("Amount", "", new { @class = "form-control" })
-                
+            <div class="form-horizontal">
+                <h4>Donation</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBox("Amount", "", new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+
+                        <input type="submit" value="Donate" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-
-                <input type="submit" value="Donate" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+        }
 
     </div>
+
+    <div class="col-md-4 well well-lg">
+        <h3>Peoples to invite</h3>
+
+        <table>
+
+
+            @foreach (var item in ViewBag.VolNotInvited)
+            {
+
+
+                <tr>
+                    <td>
+
+
+                        <span> @item.Email</span>
+
+
+                    </td>
+
+                    <td>
+
+                        @using (Html.BeginForm("InvitCreate", "Invitation", new { idA = @ViewBag.actionId, idV = @item.Id }, FormMethod.Post, null))
+
+                        {
+
+
+                            <input type="submit" value="Inviter" class="btn btn-success" />
+
+                        }
+                    </td>
+
+                </tr>
+            }
+
+
+        </table>
+
+    </div>
+    <div class="col-md-4 well well-lg">
+        <h3>Peoples alreday invited</h3>
+        <table>
+
+            @foreach (var item in ViewBag.VolInvited)
+            {
+                <tr>
+                    <td>
+
+
+                        <span> @item.Email</span>
+                    </td>
+
+                    <td>
+
+
+                        @using (Html.BeginForm("DeleteInvit", "Invitation", new { idA = @ViewBag.actionId, idV = @item.Id }, FormMethod.Post, null))
+
+                {
+                            <input type="submit" value="Annuler l'invitation" class="btn btn-danger" />
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    
+</div>
+
+
+
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.CampaignId }) |
         @Html.ActionLink("Back to List", "Index")

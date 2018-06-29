@@ -6,17 +6,19 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Volunteering.Domain.DtoInvitation;
+using Volunteering.Domain.Dtos;
 using Volunteering.Domain.Entities;
 using Volunteering.Service;
 
 namespace Volunteering.UI.Controllers_Api
-{[RoutePrefix ("api/Invitation")]
+{
+    [RoutePrefix("api/Invitation")]
     public class InvitationController : ApiController
     {
-       
 
 
-         public InvitationService _IS = new InvitationService();
+
+        public InvitationService _IS = new InvitationService();
 
         // GET: api/Invitation
         [Route("test")]
@@ -44,14 +46,14 @@ namespace Volunteering.UI.Controllers_Api
                 vd.Status = a.Status;
                 vd.VolunteerId = a.VolunteerId;
                 vd.ActionId = a.ActionId;
-                VoluntaryActionDtoU vDA = new VoluntaryActionDtoU();
-                VolunteerDtoU vDt = new VolunteerDtoU();
+                VoluntaryActionDto vDA = new VoluntaryActionDto();
+                VolunteerDto vDt = new VolunteerDto();
 
                 var V = _IS.GetDataOfInvite(a.VolunteerId);
                 var A = _IS.GetActionV(a.ActionId);
                 foreach (VoluntaryAction Ac in A)
                 {
-                    
+
                     vDA.ActionId = Ac.ActionId;
                     vDA.Name = Ac.Name;
                     vDA.StartDate = Ac.StartDate;
@@ -61,21 +63,21 @@ namespace Volunteering.UI.Controllers_Api
 
                 foreach (Volunteer v in V)
                 {
-                    
+
                     vDt.VolunteerId = v.Id;
                     vDt.UserName = v.UserName;
                     vDt.UserEmail = v.Email;
                     vd.Volunteers.Add(vDt);
                 }
                 vaDtos.Add(vd);
-                
+
             }
 
-            
+
             return vaDtos;
 
 
-                    }
+        }
 
         // POST: api/Invitation
         public void Post([FromBody]string value)

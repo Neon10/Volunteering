@@ -40,6 +40,24 @@ namespace Volunteering.UI.Controllers
         // GET: VoluntaryAction/Details/5
         public ActionResult Details(int id)
         {
+
+            InvitationService I = new InvitationService();
+
+            IEnumerable<Volunteer> Vol = I.GetInvites();
+            IEnumerable<Invitation> INVITES = I.GetAllInvites();
+            IEnumerable<Invitation> IA = I.GetInvitOfSelectedAction(id);
+
+            foreach (var item in IA)
+            {
+
+                ViewBag.SiA = item.VolunteerId;
+
+            }
+
+            ViewBag.actionId = id;
+            ViewBag.invitations = INVITES;
+            ViewBag.VolNotInvited = Vol;
+            ViewBag.VolInvited = I.VolInvited(id);
             return View(vas.GetById(id));
         }
 
