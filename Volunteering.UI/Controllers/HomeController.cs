@@ -6,9 +6,16 @@ namespace Volunteering.UI.Controllers
 {
     public class HomeController : Controller
     {
+        VoluntaryActionService vas = new VoluntaryActionService();
+
+
         // GET: Home
         public ActionResult Index()
         {
+            
+
+
+
             return View();
         }
 

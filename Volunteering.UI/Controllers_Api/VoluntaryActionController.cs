@@ -19,8 +19,8 @@ namespace Volunteering.UI.Controllers_Api
         private VoluntaryActionService vas = new VoluntaryActionService();
         [Route("getActions")]
         [ResponseType(typeof(VoluntaryAction))]
-        // GET: api/Account
-        public List<VoluntaryActionDto> GetAllUsersTest()
+        // GET: api/Action
+        public List<VoluntaryActionDto> GetAllActions()
         {
             IQueryable actions = vas.GetAllActions();
             List<VoluntaryActionDto> vaDtos = new List<VoluntaryActionDto>();
@@ -31,12 +31,22 @@ namespace Volunteering.UI.Controllers_Api
                 VoluntaryActionDto vd = new VoluntaryActionDto();
                 vd.ActionId = a.ActionId;
                 vd.Name = a.Name;
+                vd.Address = a.Address;
+                vd.Description = a.Description;
+                vd.StartDate = a.StartDate;
+                vd.EndDate = a.EndDate;
+                vd.ActionType = a.ActionType;
+                vd.MaxVolunteers = a.MaxVolunteers;
+                vd.CreatorNgoId = a.CreatorNgoId;
+
                 foreach (Volunteer v in a.Participants)
                 {
-                    VolunteerDto vDt = new VolunteerDto();
-                    vDt.VolunteerId = v.Id;
-                    vDt.UserName = v.UserName;
-                    vDt.UserEmail = v.Email;
+                    UserDto vDt = new UserDto();
+                    vDt.Id = v.Id;
+                    vDt.Name = v.Name;
+                    vDt.Email = v.Email;
+                    vDt.PhoneNumber = v.PhoneNumber;
+                    vDt.Role = "Volunteer";
                     vd.Participants.Add(vDt);
                 }
                 vaDtos.Add(vd);

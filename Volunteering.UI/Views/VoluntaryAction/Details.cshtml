@@ -1,5 +1,6 @@
 ﻿@using System.Activities.Statements
 @using System.Web.Razor.Tokenizer
+@using Microsoft.AspNet.Identity
 @using Volunteering.Service
 @model Volunteering.Domain.Entities.VoluntaryAction
 
@@ -97,25 +98,28 @@
             <br /><br />
             @Html.ActionLink("See the list of participants", "ListParticipants", new { id = Model.ActionId })
         </dd>
-
-
-        @*<dd>
-                @Html.DisplayName(new @VoluntaryActionService().GetAllActions().Count().ToString())
-                @foreach (var action in new @VoluntaryActionService().GetAllActions())
-                {
-                    foreach (var VARIABLE in action.Participants)
-                    {
-                        @Html.DisplayName(VARIABLE.UserName)
-                    }
-
-                }
-                @Html.ActionLink("See the list of participants", "ListParticipants", new { id = Model.ActionId })
-            </dd>*@
-
-
-
+       
 
     </dl>
+    
+    
+
+    @if (!(new VoluntaryActionService().IsParticipated(Model.ActionId,User.Identity.GetUserId()))) { 
+
+    using (Html.BeginForm("Participate", "VoluntaryAction", new { id = Model.ActionId }))
+    {
+        <input type="submit" value="Participate :p:p" onclick = "return confirm('Are you sure you want to participate?');" />
+    }
+
+    }
+    else
+    {
+        
+        using (Html.BeginForm("Participate", "VoluntaryAction",  new { id = Model.ActionId }))
+        {
+            <input type="submit" value="Cancel :p:p" onclick = "return confirm('Are you sure you want to participate?');" />
+        }        
+    }
 
 </div>
 <p>
