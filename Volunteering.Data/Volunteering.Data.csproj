@@ -86,6 +86,11 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Migrations\201806292345454_ModifByInvitationUser.cs" />
+    <Compile Include="Migrations\201806292345454_ModifByInvitationUser.Designer.cs">
+      <DependentUpon>201806292345454_ModifByInvitationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +105,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configurations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806292345454_ModifByInvitationUser.resx">
+      <DependentUpon>201806292345454_ModifByInvitationUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

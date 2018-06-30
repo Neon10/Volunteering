@@ -36,7 +36,8 @@ namespace Volunteering.UI.Controllers
           
            
         }
-        [AllowAnonymous]
+         [AllowAnonymous]
+        //[Authorize(Roles = "Ngo")]
         // GET: VoluntaryAction/Details/5
         public ActionResult Details(int id)
         {
@@ -46,7 +47,7 @@ namespace Volunteering.UI.Controllers
             IEnumerable<Volunteer> Vol = I.GetInvites();
             IEnumerable<Invitation> INVITES = I.GetAllInvites();
             IEnumerable<Invitation> IA = I.GetInvitOfSelectedAction(id);
-
+           
             foreach (var item in IA)
             {
 
