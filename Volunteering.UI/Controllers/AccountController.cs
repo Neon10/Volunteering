@@ -108,7 +108,7 @@ namespace Volunteering.UI.Controllers
 
                 IdentityResult result = new IdentityResult();
 
-                _userService.RegisterUser(model.Email, model.Password, model.AccountType, ref result);
+                _userService.RegisterUser(model.Name ,model.Email, model.Password, model.AccountType, ref result);
 
                 AddErrors(result);
 
