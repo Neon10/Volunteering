@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Volunteering.Domain.Dtos;
 using Volunteering.Domain.Entities;
 using Volunteering.Domain.Enums;
 using Volunteering.Service.Identity;
@@ -21,11 +22,11 @@ namespace Volunteering.UI.Controllers_Api
 
         private readonly UserService _userService = new UserService();
 
-
         //===========================//
         //--------- LOGIN ----------
         //===========================//
 
+        [HttpGet]
         [Route("GetAllUsers")]
         // GET: api/Account
         public IEnumerable<string> GetAllUsers()
@@ -33,11 +34,17 @@ namespace Volunteering.UI.Controllers_Api
             return new string[] { "value1", "value2" };
         }
 
-
-        // GET: api/Account/5
-        public string Get(int id)
+        [Route("GetUser/{id}")]
+        public IHttpActionResult GetUser(string id)
         {
-            return "value";
+
+            ApplicationUser user = _userService.UserManager.FindById(id);
+            UserDto userDto = new UserDto();
+
+            AutoMapper.AutoMapUser(user, userDto);
+            userDto.Role = _userService.GetUserRole(user);
+
+            return Ok(userDto);
         }
 
 
@@ -76,9 +83,9 @@ namespace Volunteering.UI.Controllers_Api
 
         [HttpGet]
         [HttpPost]
-        [Route("register/{email}/{password}/{accountType}")]
+        [Route("register/{name}/{email}/{password}/{accountType}")]
         // POST: api/Account
-        public string RegisterNewUser(string email, string password, string accountType)
+        public string RegisterNewUser(string name, string email, string password, string accountType)
         {
 
             IdentityResult result = new IdentityResult();
@@ -86,16 +93,16 @@ namespace Volunteering.UI.Controllers_Api
             EAccountType type;
             if (Enum.TryParse(accountType, out type))
             {
-                _userService.RegisterUser(email, password, type, ref result);
+                _userService.RegisterUser(name, email, password, type, ref result);
                 if (result.Succeeded)
                 {
-                    return "Registration success !";
+                    return "RegistrationSuccess !";
                 }
 
-                return "Registration failed";
+                return "RegistrationFailed";
             }
 
-            return "Registration failed";
+            return "RegistrationFailed";
         }
 
         // PUT: api/Account/5
@@ -122,6 +129,8 @@ namespace Volunteering.UI.Controllers_Api
             _userService.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
         }
+
+
 
 
     }

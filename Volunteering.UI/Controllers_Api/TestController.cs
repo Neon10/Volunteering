@@ -15,8 +15,6 @@ namespace Volunteering.UI.Controllers_Api
         // GET: api/Test
         public IQueryable<object> Get()
         {
-
-
             var users = us.UserManager.Users.Select(u => new { UserName = u.UserName, Email = u.Email, Role = u.Roles });
             return users;
         }
