@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Service.Pattern;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Volunteering.Data;
@@ -107,8 +108,40 @@ namespace Volunteering.Service.Identity
 
         }
 
+        public IEnumerable<Ngo> GetAllNgos()
+        {
+            var allUsers = GetAll().ToList();
+
+            ICollection<Ngo> allNgos = new List<Ngo>();
+
+            foreach (ApplicationUser appUser in allUsers)
+            {
+                if (GetUserRole(appUser).Equals("Ngo"))
+                {
+                    allNgos.Add(appUser as Ngo);
+                }
+            }
+
+            return allNgos;
+        }
 
 
+        public IEnumerable<Volunteer> GetAllVolunteers()
+        {
+            var allUsers = GetAll().ToList();
+
+            ICollection<Volunteer> allVolunteers = new List<Volunteer>();
+
+            foreach (ApplicationUser appUser in allUsers)
+            {
+                if (GetUserRole(appUser).Equals("Volunteer"))
+                {
+                    allVolunteers.Add(appUser as Volunteer);
+                }
+            }
+
+            return allVolunteers;
+        }
 
 
     }

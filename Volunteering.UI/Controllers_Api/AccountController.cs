@@ -26,6 +26,7 @@ namespace Volunteering.UI.Controllers_Api
         //--------- LOGIN ----------
         //===========================//
 
+        [HttpGet]
         [Route("GetAllUsers")]
         // GET: api/Account
         public IEnumerable<string> GetAllUsers()
@@ -128,6 +129,8 @@ namespace Volunteering.UI.Controllers_Api
             _userService.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
         }
+
+
 
 
     }

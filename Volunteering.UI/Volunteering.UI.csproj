@@ -237,6 +237,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvitationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\tessstController.cs" />
     <Compile Include="Controllers\VoluntaryActionController.cs" />
     <Compile Include="Controllers_Api\AccountController.cs" />
     <Compile Include="Controllers_Api\FundraisingCampaignController.cs" />
@@ -282,6 +283,9 @@
     <Content Include="Views\Donation\Create.cshtml" />
     <Content Include="Views\Donation\Index.cshtml" />
     <Content Include="Views\Manage\_NgoProfile.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -292,6 +296,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Invitation\" />
+    <Folder Include="Views\tessst\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Service.Pattern\Service.Pattern.csproj">

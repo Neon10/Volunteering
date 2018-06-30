@@ -10,7 +10,6 @@ namespace Volunteering.Domain.Dtos
         public static void Configure()
         {
             Mapper.Initialize(m => m.CreateMap<ApplicationUser, UserDto>());
-
         }
 
         public static void AutoMapUser(ApplicationUser user, UserDto userDto)
