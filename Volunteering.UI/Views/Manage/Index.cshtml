@@ -11,11 +11,11 @@
 <h1> USER DASHBOARD PLACEHOLDER</h1>
 
 <div class="col-md-3">
-    
+
     <ul class="nav nav-pills nav-stacked well well-lg">
-        <li class="active"><a data-toggle="tab" href="#home">Profile summary</a></li>
-        <li><a data-toggle="tab" id="invitations" href="#menu1">Invitations <span class="label label-danger "> @(new UserService().UserManager.Users.Count()) </span> </a></li>
-        <li><a data-toggle="tab" id="mesages" href="#menu2">Edit Profile</a></li>
+        <li><a data-toggle="tab" href="#home">Profile summary</a></li>
+        <li  class="active"><a data-toggle="tab" href="#menu1">Invitations <span class="label label-danger ">  @ViewBag.countV </span> </a></li>
+        <li><a data-toggle="tab" href="#menu2">Edit Profile</a></li>
     </ul>
 </div>
 
@@ -25,23 +25,109 @@
 
 
     <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
+        <div id="home" class="tab-pane fade ">
             <h3>Profile stats</h3>
             <p>number of actions</p>
             <p>number of donations</p>
             <p>biggest donation</p>
             <p>total donations</p>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <br />
             <br />
             <br />
 
         </div>
-        <div id="menu1" class="tab-pane fade">
+        <div id="menu1" class="tab-pane fade in active">
             <h3>Invitations</h3>
-            <p>List of pending invitations.</p>
-            <p>List of archived invitations.</p>
+            <div class="col-md-12 well well-lg">
+
+                <table class="col-md-12">
+                    <tr>
+
+                        <td> <b>Name  </b></td>
+                        <td><b> Start date   </b></td>
+                        <td> <b>End date  </b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    @if (ViewBag.A != null)
+                    {
+
+                        foreach (var item in ViewBag.A)
+                        {
+
+                            //foreach (var i in ViewBag.invitations)
+                            //{
+
+                            <tr>
+                                <td>
+
+
+                                    @item.Name
+
+
+                                </td>
+                                <td>
+                                    @item.StartDate
+                                </td>
+                                <td>
+                                    @item.EndDate
+                                </td>
+
+                                <td>
+
+
+
+                                    @using (Html.BeginForm("InvitupdateA", "Invitation", new { idI = @ViewBag.Invit }, FormMethod.Post, null))
+
+                                    {
+
+                                        <input type="submit" value="Accepter l'invitation" class="btn btn-success" />
+
+                                    }
+
+                                </td>
+
+
+
+
+                                <td>
+
+
+                                    @using (Html.BeginForm("InvitupdateR", "Invitation", new { idI = @ViewBag.Invit }, FormMethod.Post, null))
+
+                                    {
+
+                                        <input type="submit" value="Refuser l'invitation" class="btn btn-danger" />
+                                    }
+
+
+                                </td>
+
+
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+
+
+                                <span>No invitations</span>
+
+
+                            </td>
+                        </tr>
+
+
+
+                    }
+
+                </table>
+            </div>
 
         </div>
         <div id="menu2" class="tab-pane fade">
