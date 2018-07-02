@@ -86,17 +86,9 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201805171619343_testMysqlCon1.cs" />
-    <Compile Include="Migrations\201805171619343_testMysqlCon1.Designer.cs">
-      <DependentUpon>201805171619343_testMysqlCon1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805201636474_identityIntergrationTest.cs" />
-    <Compile Include="Migrations\201805201636474_identityIntergrationTest.Designer.cs">
-      <DependentUpon>201805201636474_identityIntergrationTest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805201937049_NewApplicationUserSubClasses.cs" />
-    <Compile Include="Migrations\201805201937049_NewApplicationUserSubClasses.Designer.cs">
-      <DependentUpon>201805201937049_NewApplicationUserSubClasses.cs</DependentUpon>
+    <Compile Include="Migrations\201807010859423_RebuildingDbSchema.cs" />
+    <Compile Include="Migrations\201807010859423_RebuildingDbSchema.Designer.cs">
+      <DependentUpon>201807010859423_RebuildingDbSchema.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,14 +107,8 @@
     <Folder Include="Configurations\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805171619343_testMysqlCon1.resx">
-      <DependentUpon>201805171619343_testMysqlCon1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805201636474_identityIntergrationTest.resx">
-      <DependentUpon>201805201636474_identityIntergrationTest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805201937049_NewApplicationUserSubClasses.resx">
-      <DependentUpon>201805201937049_NewApplicationUserSubClasses.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807010859423_RebuildingDbSchema.resx">
+      <DependentUpon>201807010859423_RebuildingDbSchema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

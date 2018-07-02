@@ -108,7 +108,7 @@ namespace Volunteering.UI.Controllers
 
                 IdentityResult result = new IdentityResult();
 
-                _userService.RegisterUser(model.Email, model.Password, model.AccountType, ref result);
+                _userService.RegisterUser(model.Name, model.Email, model.Password, model.AccountType, ref result);
 
                 AddErrors(result);
 
@@ -122,6 +122,39 @@ namespace Volunteering.UI.Controllers
             return View(model);
         }
 
+
+
+
+        //===========================//
+        //--------- PROFILE ----------
+        //===========================//
+
+
+        //
+        // GET: /Account/UserProfile/azeaz-5ae5a-aze15az
+        [AllowAnonymous]
+        public ActionResult UserProfile(string id)
+        {
+
+            var x = _userService.UserManager.FindById(id);
+            return View(x);
+        }
+
+
+        //
+        // GET: /Account/EditProfile/azeaz-5ae5a-aze15az
+        [Authorize]
+        public ActionResult EditProfile(string id)
+        {
+            if (HttpContext.User.Identity.GetUserId() == id || _userService.GetUserRole(_userService.UserManager.FindById(id)).Equals("Administrator"))
+            {
+                var user = _userService.UserManager.FindById(id);
+                return View(user);
+            }
+
+            return View("Error");
+
+        }
 
 
 

@@ -1,0 +1,93 @@
+﻿@model Volunteering.Domain.Entities.FundraisingCampaign
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="col-md-9 well well-lg">
+
+    <h2>Details</h2>
+
+    <div>
+        <h4>FundraisingCampaign</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StartDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TargetAmount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TargetAmount)
+            </dd>
+
+        </dl>
+
+
+        @using (Html.BeginForm("Create", "Donation", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Donation</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label("Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBox("Amount", "", new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+
+                        <input type="submit" value="Donate" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CampaignId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <br /><br /><br /><br /><br /><br />
+</div>

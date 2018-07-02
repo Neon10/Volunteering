@@ -7,13 +7,13 @@ namespace Volunteering.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class TestMysqlCon1 : IMigrationMetadata
+    public sealed partial class RebuildingDbSchema : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(TestMysqlCon1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RebuildingDbSchema));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805171619343_testMysqlCon1"; }
+            get { return "201807010859423_RebuildingDbSchema"; }
         }
         
         string IMigrationMetadata.Source

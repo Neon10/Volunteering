@@ -1,0 +1,119 @@
+﻿@using Volunteering.Service
+@model IEnumerable<Volunteering.Domain.Entities.VoluntaryAction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+                <div>
+                    Action Name @Html.TextBox("searchName")
+                    Location @Html.TextBox("searchAddress")
+                </div>
+               
+                    
+                
+            </td>
+            <td>
+                <input type="submit" value="Search" id="submit" />
+            </td>
+        </tr>
+    </table>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="dl-horizontal well well-lg">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxVolunteers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatorNgo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxVolunteers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActionType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem =>
+                        new @VoluntaryActionService().GetNgoCreatorById(item.CreatorNgoId).Email)
+                </td>
+
+
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ActionId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ActionId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ActionId })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB8BtMRdu9tvtEaHDsoRFKafb3eDeiUcGA&libraries=places">
+
+</script>
+<script type="text/javascript">
+
+    google.maps.event.addDomListener(window, 'load', function () {
+        //var options = {
+        //    types: ['(cities)'],
+        //    componentRestrictions: { country: "tn" }
+        //};
+        var input = document.getElementById('searchAddress');
+        var places = new google.maps.places.Autocomplete(input);
+
+
+    });
+</script>  
