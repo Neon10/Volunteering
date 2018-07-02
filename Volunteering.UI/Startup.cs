@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Volunteering.Domain.Dtos;
 using static Volunteering.Service.Startup;
 
 
@@ -18,6 +19,8 @@ namespace Volunteering.UI
             // ConfigureAuth(app);
 
             OwinInit(app);
+            //app.SetDefaultSignInAsAuthenticationType(DefaultAuthenticationTypes.ApplicationCookie);
+
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -25,7 +28,7 @@ namespace Volunteering.UI
                 LoginPath = new PathString("/Account/Login")
             });
 
-
+            AutoMapper.Configure();
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
@@ -37,8 +40,8 @@ namespace Volunteering.UI
             //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: "188939881791663",
+            //   appSecret: "d5602158adb6d1f40ecb56ae25819ebb");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

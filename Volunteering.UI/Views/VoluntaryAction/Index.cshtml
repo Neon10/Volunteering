@@ -6,14 +6,15 @@
 }
 
 <h2>Index</h2>
+
 @using (Html.BeginForm())
 {
     <table>
         <tr>
             <td>
                 <div>
-                    Action Name: @Html.TextBox("searchName")
-                    Address: @Html.TextBox("searchAddress")
+                    Action Name @Html.TextBox("searchName")
+                    Location @Html.TextBox("searchAddress")
                 </div>
                
                     
@@ -25,6 +26,7 @@
         </tr>
     </table>
 }
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -88,6 +90,7 @@
                 </td>
 
 
+
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ActionId }) |
                     @Html.ActionLink("Details", "Details", new { id = item.ActionId }) |
@@ -114,4 +117,3 @@
 
     });
 </script>  
-

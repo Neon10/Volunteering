@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,8 +31,13 @@ namespace Volunteering.UI.Controllers
                 }
 
 
+            string idUser = User.Identity.GetUserId();
+
+            InvitationService IS = new InvitationService();
+
             markers += "];";
             ViewBag.Markers = markers;
+            ViewBag.countV = IS.countV(idUser);
             return View();
             }
 

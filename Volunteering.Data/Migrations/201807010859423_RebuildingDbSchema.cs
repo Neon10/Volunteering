@@ -3,7 +3,7 @@ namespace Volunteering.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class rebuilddatabase : DbMigration
+    public partial class RebuildingDbSchema : DbMigration
     {
         public override void Up()
         {
@@ -78,15 +78,15 @@ namespace Volunteering.Data.Migrations
                 c => new
                     {
                         InvitationId = c.Int(nullable: false, identity: true),
+                        ActionId = c.Int(nullable: false),
+                        VolunteerId = c.String(maxLength: 128, storeType: "nvarchar"),
                         Status = c.Int(nullable: false),
-                        Action_ActionId = c.Int(),
-                        Volunteer_Id = c.String(maxLength: 128, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.InvitationId)
-                .ForeignKey("dbo.VoluntaryActions", t => t.Action_ActionId)
-                .ForeignKey("dbo.AspNetUsers", t => t.Volunteer_Id)
-                .Index(t => t.Action_ActionId)
-                .Index(t => t.Volunteer_Id);
+                .ForeignKey("dbo.VoluntaryActions", t => t.ActionId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.VolunteerId)
+                .Index(t => t.ActionId)
+                .Index(t => t.VolunteerId);
             
             CreateTable(
                 "dbo.VoluntaryActions",
@@ -163,8 +163,8 @@ namespace Volunteering.Data.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.FundraisingCampaigns", "OwnerNgoId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Invitations", "Volunteer_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Invitations", "Action_ActionId", "dbo.VoluntaryActions");
+            DropForeignKey("dbo.Invitations", "VolunteerId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Invitations", "ActionId", "dbo.VoluntaryActions");
             DropForeignKey("dbo.VoluntaryActionVolunteers", "Volunteer_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.VoluntaryActionVolunteers", "VoluntaryAction_ActionId", "dbo.VoluntaryActions");
             DropForeignKey("dbo.VoluntaryActions", "CreatorNgoId", "dbo.AspNetUsers");
@@ -177,8 +177,8 @@ namespace Volunteering.Data.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.VoluntaryActions", new[] { "CreatorNgoId" });
-            DropIndex("dbo.Invitations", new[] { "Volunteer_Id" });
-            DropIndex("dbo.Invitations", new[] { "Action_ActionId" });
+            DropIndex("dbo.Invitations", new[] { "VolunteerId" });
+            DropIndex("dbo.Invitations", new[] { "ActionId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Donations", new[] { "CampaignId" });
