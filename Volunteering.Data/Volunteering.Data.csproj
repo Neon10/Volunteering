@@ -86,10 +86,6 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201807010859423_RebuildingDbSchema.cs" />
-    <Compile Include="Migrations\201807010859423_RebuildingDbSchema.Designer.cs">
-      <DependentUpon>201807010859423_RebuildingDbSchema.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -105,11 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configurations\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807010859423_RebuildingDbSchema.resx">
-      <DependentUpon>201807010859423_RebuildingDbSchema.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
