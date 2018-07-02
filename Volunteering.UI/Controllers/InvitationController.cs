@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using Volunteering.Domain.Entities;
 using Volunteering.Service;
 using Volunteering.Service.Identity;
 
@@ -29,14 +31,153 @@ namespace Volunteering.UI.Controllers
             return View(invtService.GetById(id));
         }
 
+
+
         // GET: Invitation/Create
-        public ActionResult Create()
+        //[HttpGet]
+        [HttpPost]
+        //[Route("Invitation/{idV}/{idA}")]
+        public ActionResult InvitCreate(string idV, int idA)
         {
-            return View();
+            //try
+            //{
+            Invitation I = new Invitation();
+            InvitationService IS = new InvitationService();
+            
+            
+            I.Status = Domain.Enums.InvitationStatus.Unanswered;
+            I.ActionId = idA;
+            I.VolunteerId = idV;
+           if(IS.NumberOfInvitesIfExist(idA, idV) == 0)
+                    invtService.Add(I);
+           
+                    try
+                    {
+                        invtService.Commit();
+                    }
+                    catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                    {
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors)
+                            {
+                                Response.Write("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                            }
+                        }
+
+                        //           }
+                        //           catch
+                        //           {
+                        //return View();
+                        //           }
+                    
+                
+            }
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public ActionResult InvitupdateA( int idI, FormCollection collection)
+        {
+            //try
+            //{
+
+            foreach (var item in invtService.ForUpdateInv(idI))
+            {
+                item.Status = Domain.Enums.InvitationStatus.Accepted;
+                invtService.Update(item);
+
+            }
+            try
+            {
+                invtService.Commit();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        Response.Write("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                    }
+                }
+
+
+            }
+
+
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public ActionResult InvitupdateR(int idI)
+        {
+            //try
+            //{
+
+            
+            foreach (var item in invtService.ForUpdateInv(idI))
+            {
+                item.Status = Domain.Enums.InvitationStatus.Refused;
+                invtService.Update(item);
+                
+            }
+            try
+            {
+                invtService.Commit();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        Response.Write("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                    }
+                }
+
+
+            }
+
+            
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
         }
 
+        public ActionResult DeleteInvit( string idV, int idA)
+        {
+            //try
+            //{
+           
+
+            var x =  invtService.FordeleteInv(idA, idV);
+
+            foreach (Invitation i in x)
+            {
+                invtService.Delete(i);
+            }
+
+            try
+            {
+                invtService.Commit();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        Response.Write("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                    }
+                }
+
+                //           }
+                //           catch
+                //           {
+                //return View();
+                //           }
+            }
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+        }
         // POST: Invitation/Create
-        [HttpPost]
+        //[HttpPost]
         public ActionResult Create(FormCollection collection)
         {
             try

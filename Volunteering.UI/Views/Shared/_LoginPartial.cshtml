@@ -2,66 +2,64 @@
 @using System.Web.Razor.Parser.SyntaxTree
 @using Microsoft.AspNet.Identity
 @using Volunteering.Service.Identity
-
+@{UserService _us = new UserService(); }
 @if (Request.IsAuthenticated)
 {
-    //using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right " }))
-    //{
-    //    @Html.AntiForgeryToken()
-    @*<li><a href="javascript:document.getElementById('logoutForm').submit()">  LogOut <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>*@
-
-    //}
-
-    //    TODO ADD MANAGE CONTROLLER
 
 
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                
-                <div class="dropdown">
-                    @if (User.IsInRole("Ngo")) { 
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <div class="hello-div">
+                @if(_us.UserManager.FindById(User.Identity.GetUserId()).Name != null) { 
+                @Html.Label("Hello " + _us.UserManager.FindById(User.Identity.GetUserId()).Name, new {@class = "label label-info", @style = "font-size=50px"})
+                }
+            </div>
+
+        </li>
+        <li>
+
+            <div class="dropdown">
+                @if (User.IsInRole("Ngo"))
+                {
                     <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-plus-sign h4"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Add new Action</a></li>
-                        <li><a href="#">Add new Campaign</a></li>
+                        <li><a href="../VoluntaryAction/Create">Add New Action</a></li>
+                        <li><a href="../FundraisingCampaign/Create">Add New Campaign</a></li>
                     </ul>
-                    }
-                </div>
-                
-            </li>
+                }
+            </div>
+        </li>
 
-            <li>
+        <li>
 
-                <div class="dropdown">
-                    @*<img src="https://www.w3schools.com/w3images/avatar2.png"  class="img-responsive img-circle dropdown-toggle" data-toggle="dropdown" alt="Cinque Terre">*@
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="https://www.w3schools.com/w3images/avatar2.png" class="img-responsive img-circle"></a>
+            <div class="dropdown">
+                @*<img src="https://www.w3schools.com/w3images/avatar2.png"  class="img-responsive img-circle dropdown-toggle" data-toggle="dropdown" alt="Cinque Terre">*@
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="https://www.w3schools.com/w3images/avatar2.png" class="img-responsive img-circle"></a>
 
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Account</a></li>
-                        <li><a href="#">CSS</a></li>
-                        <li><a href="#">JavaScript</a></li>
-                    </ul>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                    <li><a href="../Manage/Index#invitations">Invitations <span class="label label-danger ">@ViewBag.countV</span></a></li>
+                    <li><a href="../Manage/Index">Messages <span class="label label-danger ">@(new UserService().GetAll().Count())</span></a></li>
+                    <li role="separator" class="divider"></li>
+                    <li> @Html.ActionLink("Logout", "Logout", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
 
-                </div>
-            </li>
 
-            <li>@Html.ActionLink(" ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "glyphicon glyphicon-user h3" }) </li>
-            <li>@Html.ActionLink("  ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Invitations", @class = "glyphicon glyphicon-envelope h3" }) </li>
-            <li>@Html.ActionLink("  ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Messages", @class = "glyphicon glyphicon-comment h3" }) </li>
-            <li>@Html.ActionLink("  ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Notfications", @class = "glyphicon glyphicon-bell h3" }) </li>
-            <li> @Html.ActionLink(" ", "Logout", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = " glyphicon glyphicon-log-out h3" })</li>
+                </ul>
 
-        </ul>
+            </div>
+        </li>
 
-    }
-    
+    </ul>
+
+}
+
 
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink(" ", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = " glyphicon glyphicon-user h3" })</li>
+        <li>@Html.ActionLink(" ", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = " glyphicon glyphicon-plus-sign h3" })</li>
         <li> @Html.ActionLink(" ", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" , @class = " glyphicon glyphicon-log-in h3" })</li>
     </ul>
 

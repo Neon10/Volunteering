@@ -7,6 +7,26 @@
 
 <h2>Index</h2>
 
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+                <div>
+                    Action Name @Html.TextBox("searchName")
+                    Location @Html.TextBox("searchAddress")
+                </div>
+               
+                    
+                
+            </td>
+            <td>
+                <input type="submit" value="Search" id="submit" />
+            </td>
+        </tr>
+    </table>
+}
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -66,7 +86,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem =>
-                new @VoluntaryActionService().GetNgoCreatorById(item.CreatorNgoId).Email)
+                        new @VoluntaryActionService().GetNgoCreatorById(item.CreatorNgoId).Email)
                 </td>
 
 
@@ -81,3 +101,19 @@
 
     </table>
 </div>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB8BtMRdu9tvtEaHDsoRFKafb3eDeiUcGA&libraries=places">
+
+</script>
+<script type="text/javascript">
+
+    google.maps.event.addDomListener(window, 'load', function () {
+        //var options = {
+        //    types: ['(cities)'],
+        //    componentRestrictions: { country: "tn" }
+        //};
+        var input = document.getElementById('searchAddress');
+        var places = new google.maps.places.Autocomplete(input);
+
+
+    });
+</script>  

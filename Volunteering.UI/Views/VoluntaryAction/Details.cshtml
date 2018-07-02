@@ -14,7 +14,7 @@
 <div>
     <h4>VoluntaryAction</h4>
     <hr />
-    <dl class="dl-horizontal well well-lg">
+    <dl class="col-md-8 well well-lg">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -122,8 +122,78 @@
     }
 
 </div>
-<p>
 
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ActionId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="col-md-4 well well-lg">
+    <h3>Peoples to invite</h3>
+
+    <table>
+
+
+        @foreach (var item in ViewBag.VolNotInvited)
+            {
+
+
+            <tr>
+                <td>
+
+
+                    <span> @item.Email</span>
+
+
+                </td>
+
+                <td>
+
+                    @using (Html.BeginForm("InvitCreate", "Invitation", new { idA = @ViewBag.actionId, idV = @item.Id }, FormMethod.Post, null))
+
+                    {
+
+
+                        <input type="submit" value="Inviter" class="btn btn-success" />
+
+                    }
+                </td>
+
+            </tr>
+        }
+
+
+    </table>
+
+</div>
+<div class="col-md-4 well well-lg">
+    <h3>Peoples alreday invited</h3>
+    <table>
+
+        @foreach (var item in ViewBag.VolInvited)
+            {
+            <tr>
+                <td>
+
+
+                    <span> @item.Email</span>
+                </td>
+
+                <td>
+
+
+                    @using (Html.BeginForm("DeleteInvit", "Invitation", new { idA = @ViewBag.actionId, idV = @item.Id }, FormMethod.Post, null))
+
+                {
+                        <input type="submit" value="Annuler l'invitation" class="btn btn-danger" onclick ="return confirm('Are you sure you want to delete the invitation ?');"/>
+                    }
+
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div>
+    <p>
+
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ActionId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

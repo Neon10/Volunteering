@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Volunteering.Domain.Dtos
+﻿namespace Volunteering.Domain.Dtos
 {
     public class UserDto
     {
+        public UserDto()
+        {
+            Id = "empty";
+            Name = "empty";
+            Email = "empty";
+            PhoneNumber = "empty";
+            Role = "empty";
+
+        }
         public string Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
