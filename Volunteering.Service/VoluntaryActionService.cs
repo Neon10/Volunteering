@@ -4,14 +4,22 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
+using System.Web;
+using System.Xml;
 using System.Xml.Linq;
+using GoogleMaps.LocationServices;
 using Microsoft.AspNet.Identity;
 using Service.Pattern;
 using Volunteering.Data;
 using Volunteering.Data.Infrastructure;
 using Volunteering.Domain.Entities;
+using Volunteering.Domain.Enums;
 using Volunteering.Service.Identity;
+
 
 namespace Volunteering.Service
 {
@@ -74,10 +82,8 @@ namespace Volunteering.Service
         }
         public void Participate(int actionId, string userId)
         {
-           
 
-            
-            if (!IsParticipated(actionId ,userId))
+            if (!IsParticipated(actionId, userId))
             {
                 Volunteer v = ut.GetRepository<ApplicationUser>().GetById(userId) as Volunteer;
                 VoluntaryAction a = ut.GetRepository<VoluntaryAction>().GetById(actionId);
@@ -95,9 +101,9 @@ namespace Volunteering.Service
                 _context.VoluntaryActions.AddOrUpdate(a);
                 _context.SaveChanges();
                 Commit();
-                
+
             }
-            
+
         }
         public bool IsParticipated(int actionId ,string userId)
         {
@@ -107,6 +113,84 @@ namespace Volunteering.Service
 
             return a.Participants.Any(p=>p.Id==userId);
         }
+
+
+
+        public double GetLat(string address)
+        {
+
+            var locationService = new GoogleLocationService();
+            var point = locationService.GetLatLongFromAddress(address);
+            return point.Latitude;
+            //return 37.21706989634869;
+
+        }
+
+        public double GetLong(string address)
+        {
+            
+            var locationService = new GoogleLocationService();
+            var point = locationService.GetLatLongFromAddress(address);
+            //return 10.059717490333583;
+            return point.Longitude;
+            
+
+        }
+
+
+        public string GetLongitude(string address, string sensor)
+        {
+            string urlAddress = "http://maps.googleapis.com/maps/api/geocode/xml?address=" + HttpUtility.UrlEncode(address) + "&sensor=" + sensor;
+            string returnValue = "";
+            try
+            {
+                XmlDocument objXmlDocument = new XmlDocument();
+                objXmlDocument.Load(urlAddress);
+                XmlNodeList objXmlNodeList = objXmlDocument.SelectNodes("/GeocodeResponse/result/geometry/location");
+                foreach (XmlNode objXmlNode in objXmlNodeList)
+                {
+                    // GET LONGITUDE 
+                    returnValue = objXmlNode.ChildNodes.Item(0).InnerText;
+
+                    //// GET LATITUDE 
+                    //returnValue += "," + objXmlNode.ChildNodes.Item(1).InnerText;
+                }
+            }
+            catch
+            {
+                // Process an error action here if needed  
+            }
+            return returnValue;
+        }
+
+
+
+        public string GetLatitude(string address, string sensor)
+        {
+            string urlAddress = "http://maps.googleapis.com/maps/api/geocode/xml?address=" + HttpUtility.UrlEncode(address) + "&sensor=" + sensor;
+            string returnValue = "";
+            try
+            {
+                XmlDocument objXmlDocument = new XmlDocument();
+                objXmlDocument.Load(urlAddress);
+                XmlNodeList objXmlNodeList = objXmlDocument.SelectNodes("/GeocodeResponse/result/geometry/location");
+                foreach (XmlNode objXmlNode in objXmlNodeList)
+                {
+                    // GET LONGITUDE 
+                    //returnValue = objXmlNode.ChildNodes.Item(0).InnerText;
+
+                    // GET LATITUDE 
+                    returnValue += "," + objXmlNode.ChildNodes.Item(1).InnerText;
+                }
+            }
+            catch
+            {
+                // Process an error action here if needed  
+            }
+            return returnValue;
+        }
+
+
 
     }
 }

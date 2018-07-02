@@ -96,30 +96,32 @@
 
             }
             <br /><br />
-            @Html.ActionLink("See the list of participants", "ListParticipants", new { id = Model.ActionId })
-        </dd>
        
+            @Html.ActionLink("See the list of participants", "ListParticipants", new {id = Model.ActionId})
+            @if (Request.IsAuthenticated)
+            {
+
+            if (!(new VoluntaryActionService().IsParticipated(Model.ActionId, User.Identity.GetUserId())))
+             {
+
+                 using (Html.BeginForm("Participate", "VoluntaryAction", new {id = Model.ActionId}))
+                 {
+                     <input type="submit" value="Participate" class="btn btn-success"/>
+                 }
+
+             }
+             else
+             {
+
+                 using (Html.BeginForm("Participate", "VoluntaryAction", new {id = Model.ActionId}))
+                 {
+                     <input type="submit" value="Cancel" class="btn btn-danger"/>
+                 }
+             }
+        }
+        </dd>
 
     </dl>
-    
-    
-
-    @if (!(new VoluntaryActionService().IsParticipated(Model.ActionId,User.Identity.GetUserId()))) { 
-
-    using (Html.BeginForm("Participate", "VoluntaryAction", new { id = Model.ActionId }))
-    {
-        <input type="submit" value="Participate :p:p" onclick = "return confirm('Are you sure you want to participate?');" />
-    }
-
-    }
-    else
-    {
-        
-        using (Html.BeginForm("Participate", "VoluntaryAction",  new { id = Model.ActionId }))
-        {
-            <input type="submit" value="Cancel :p:p" onclick = "return confirm('Are you sure you want to participate?');" />
-        }        
-    }
 
 </div>
 <p>

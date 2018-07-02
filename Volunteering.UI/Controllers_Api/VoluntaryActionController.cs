@@ -9,6 +9,7 @@ using Volunteering.Domain.Entities;
 using Volunteering.Service;
 using System.Data.Entity;
 using System.Web.Http.Description;
+using GoogleMaps.LocationServices;
 using Volunteering.Domain.Dtos;
 
 namespace Volunteering.UI.Controllers_Api
@@ -69,6 +70,8 @@ namespace Volunteering.UI.Controllers_Api
             return "value";
         }
 
+        
+
         // POST: api/VoluntaryAction
         public void Post([FromBody]string value)
         {
@@ -83,7 +86,20 @@ namespace Volunteering.UI.Controllers_Api
         public void Delete(int id)
         {
         }
+        [Route("getPoint")]
+        // GET: api/VoluntaryAction/5
+        public MapPoint Point()
+        {
+            MapPoint m = new MapPoint();
+            //var address = "Tunis";
+            var locationService = new GoogleLocationService();
+            var point = locationService.GetLatLongFromAddress("tunis");
 
-       
+
+            //m.Latitude= point.Latitude;
+            //m.Longitude = point.Longitude;
+            return point;
+        }
+
     }
 }

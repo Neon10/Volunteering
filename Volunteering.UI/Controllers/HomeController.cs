@@ -1,5 +1,8 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Volunteering.Domain.Entities;
 using Volunteering.Service;
 
 namespace Volunteering.UI.Controllers
@@ -13,12 +16,27 @@ namespace Volunteering.UI.Controllers
         public ActionResult Index()
         {
             
+                string markers = "[";
+                List<VoluntaryAction> actions = new List<VoluntaryAction>();
+                actions = vas.GetAll().ToList();
+                foreach (VoluntaryAction sdr in actions)
+                {
+                    markers += "{";
+                    markers += string.Format("'Address': '{0}',", sdr.Address);
+                    markers += string.Format("'lat': '{0}',", vas.GetLatitude(sdr.Address,"true"));
+                    markers += string.Format("'lng': '{0}',", vas.GetLongitude(sdr.Address,"true"));
+                    //markers += string.Format("'description': '{0}'", sdr.Description);
+                    markers += "},";
+                }
 
 
-
+            markers += "];";
+            ViewBag.Markers = markers;
             return View();
-        }
+            }
 
+
+          
 
 
         public string AddUser()
