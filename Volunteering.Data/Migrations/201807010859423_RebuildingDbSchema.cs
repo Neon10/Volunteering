@@ -3,7 +3,7 @@ namespace Volunteering.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ModifByInvitationUser : DbMigration
+    public partial class RebuildingDbSchema : DbMigration
     {
         public override void Up()
         {

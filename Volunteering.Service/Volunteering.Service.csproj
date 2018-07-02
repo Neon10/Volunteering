@@ -95,6 +95,7 @@
     <Compile Include="FundraisingCampaignService.cs" />
     <Compile Include="Identity\ApplicationSignInManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
+    <Compile Include="Identity\UsersJee.cs" />
     <Compile Include="InvitationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Identity\UserService.cs" />

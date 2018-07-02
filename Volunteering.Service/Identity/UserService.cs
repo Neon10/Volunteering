@@ -103,9 +103,22 @@ namespace Volunteering.Service.Identity
 
         public string GetUserRole(ApplicationUser user)
         {
+            string role = _userManager.GetRoles(user.Id).First();
 
-            return _userManager.GetRoles(user.Id).First();
+            if (role != null)
+            {
+                return role;
+            }
+            else
+            {
+                return "RoleNotFound";
+            }
 
+        }
+
+        public string GetCurrentUserId()
+        {
+            return HttpContext.Current.User.Identity.GetUserId();
         }
 
         public IEnumerable<Ngo> GetAllNgos()
@@ -141,6 +154,15 @@ namespace Volunteering.Service.Identity
             }
 
             return allVolunteers;
+        }
+
+
+        public string GetAppUserId()
+        {
+
+            var usr = UserManager.FindById(HttpContext.Current.User.Identity.GetUserId());
+
+            return usr.Id;
         }
 
 

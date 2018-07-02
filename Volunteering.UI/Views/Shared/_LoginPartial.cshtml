@@ -2,16 +2,18 @@
 @using System.Web.Razor.Parser.SyntaxTree
 @using Microsoft.AspNet.Identity
 @using Volunteering.Service.Identity
-
+@{UserService _us = new UserService(); }
 @if (Request.IsAuthenticated)
 {
 
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-        <div class="hello-div" >
-                @Html.Label("Hello " + new UserService().UserManager.FindById(User.Identity.GetUserId()).Name, new { @class = "label label-info", @style = "font-size=50px" })
-        </div>
+            <div class="hello-div">
+                @if(_us.UserManager.FindById(User.Identity.GetUserId()).Name != null) { 
+                @Html.Label("Hello " + _us.UserManager.FindById(User.Identity.GetUserId()).Name, new {@class = "label label-info", @style = "font-size=50px"})
+                }
+            </div>
 
         </li>
         <li>
