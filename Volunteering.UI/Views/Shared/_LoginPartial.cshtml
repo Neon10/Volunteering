@@ -40,7 +40,7 @@
 
                 <ul class="dropdown-menu">
                     <li>@Html.ActionLink("Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
-                    <li><a href="../Manage/Index#invitations">Invitations <span class="label label-danger ">@(new UserService().GetAll().Count())</span></a></li>
+                    <li><a href="../Manage/Index#invitations">Invitations <span class="label label-danger ">@ViewBag.countV</span></a></li>
                     <li><a href="../Manage/Index">Messages <span class="label label-danger ">@(new UserService().GetAll().Count())</span></a></li>
                     <li role="separator" class="divider"></li>
                     <li> @Html.ActionLink("Logout", "Logout", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>

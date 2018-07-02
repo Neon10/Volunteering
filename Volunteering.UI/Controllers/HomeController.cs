@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using Microsoft.AspNet.Identity;
+using System.Web;
 using System.Web.Mvc;
 using Volunteering.Service;
 
@@ -12,10 +13,13 @@ namespace Volunteering.UI.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            
 
 
+            string idUser = User.Identity.GetUserId();
 
+            InvitationService IS = new InvitationService();
+
+            ViewBag.countV = IS.countV(idUser);
             return View();
         }
 
