@@ -137,6 +137,10 @@ namespace Volunteering.UI.Controllers
         {
 
             var x = _userService.UserManager.FindById(id);
+            if (x == null)
+            {
+                return View("Error");
+            }
             return View(x);
         }
 
