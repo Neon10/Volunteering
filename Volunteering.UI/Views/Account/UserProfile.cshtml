@@ -17,10 +17,19 @@
             <div class="well well-sm">
                 <h3 class="text-center"> <span class="label label-info">@Model.Name</span></h3>
                 @if(Model.Id != User.Identity.GetUserId() && User.Identity.IsAuthenticated) { 
-                    <button  type="button"  class="btn btn-default btn-lg">
+                    @*<button  type="button"   class="btn btn-default btn-lg">
                         <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Send Message
-                    </button>
+                    </button>*@
+
+
+                    using (Html.BeginForm("CreateNewDiscussion", "Discussion", FormMethod.Get , new { id = Model.Id }))
+                    {
+                        @Html.Hidden("email", Model.Email)
+                        <input type="submit" value="Send Message" class="btn btn-info btn-lg glyphicon glyphicon-envelope" />
+                    }  
+
                 }
+
             </div>
 
         </div>

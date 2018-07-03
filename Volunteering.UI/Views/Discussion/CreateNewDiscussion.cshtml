@@ -40,7 +40,7 @@
         <div class="form-group">
             @Html.Label("Send To ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBox("Email")
+                @Html.TextBox("Email" , (String)ViewBag.email)
             </div>
         </div>
 

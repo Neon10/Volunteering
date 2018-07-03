@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Volunteering.Domain.Entities;
 using Volunteering.Service;
@@ -30,8 +26,11 @@ namespace Volunteering.UI.Controllers
         }
 
         // GET: Discussion/Create
-        public ActionResult CreateNewDiscussion()
+        [HttpGet]
+        public ActionResult CreateNewDiscussion(string email)
         {
+            ViewBag.email = email;
+
             return View();
         }
 
@@ -44,7 +43,7 @@ namespace Volunteering.UI.Controllers
             d.Title = D.Title;
             d.Content = D.Content;
             d.SenderId = User.Identity.GetUserId();
-            if (us.UserManager.FindByEmail(Email) !=null)
+            if (us.UserManager.FindByEmail(Email) != null)
             {
                 d.RecipientId = us.UserManager.FindByEmail(Email).Id;
             }
