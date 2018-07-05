@@ -121,10 +121,24 @@ namespace Volunteering.UI.Controllers_Api
 
         [Route("getUsers")]
         // GET: api/Account
-        public IEnumerable<ApplicationUser> GetAllUsersTest()
+        public IEnumerable<UserDto> GetAllUsersTest()
         {
             var users = _userService.UserManager.Users.ToList();
-            return users;
+            List<UserDto> usersDto = new List<UserDto>();
+
+            foreach (ApplicationUser u in users)
+            {
+                UserDto uDto = new UserDto();
+
+
+                AutoMapper.AutoMapUser(u, uDto);
+                uDto.Role = _userService.GetUserRole(u);
+
+                usersDto.Add(uDto);
+
+            }
+
+            return usersDto;
 
         }
 

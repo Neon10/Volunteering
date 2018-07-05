@@ -9,6 +9,7 @@ namespace Volunteering.Domain.Entities
         {
             Discussions = new List<Discussion>();
             ImageUrl = "https://www.w3schools.com/w3images/avatar2.png";
+            Solde = 1000;
         }
 
         public string Name { get; set; }

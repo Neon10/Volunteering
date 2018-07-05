@@ -15,7 +15,7 @@
         <div class="well well-lg">
 
             <h5 align="center"> @Html.Label(Model.Id)</h5> 
-            <img src="https://www.w3schools.com/bootstrap/paris.jpg" class="img-responsive img-thumbnail" alt="Cinque Terre">
+            <img src="@Model.ImageUrl" class="img-responsive img-thumbnail" alt="Cinque Terre">
             <div class="well well-sm">
                 <h3 class="text-center"> <span class="label label-info">@Model.Name</span></h3>
                 @if (Model.Id != User.Identity.GetUserId() && User.Identity.IsAuthenticated)

@@ -50,11 +50,10 @@
         <li>
 
             <div class="dropdown">
-                @*<img src="https://www.w3schools.com/w3images/avatar2.png"  class="img-responsive img-circle dropdown-toggle" data-toggle="dropdown" alt="Cinque Terre">*@
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="https://www.w3schools.com/w3images/avatar2.png" class="img-responsive img-circle"></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="@_us.UserManager.FindById(User.Identity.GetUserId()).ImageUrl" class="img-responsive img-circle"></a>
 
                 <ul class="dropdown-menu">
-                    <li><p class="alert-info"> @_us.UserManager.FindById(User.Identity.GetUserId()).Email </p></li>
+                    <li><p class="alert alert-info"> @_us.UserManager.FindById(User.Identity.GetUserId()).Email </p></li>
                     <li>@Html.ActionLink("Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
                     <li><a href="../Manage/Index#invitations">Invitations <span class="label label-danger ">@ViewBag.countV</span></a></li>
                     <li><a href="../Manage/Index">Messages <span class="label label-danger ">@(new UserService().GetAll().Count())</span></a></li>
