@@ -25,8 +25,6 @@ namespace Volunteering.UI.Controllers_Api
         {
             IQueryable actions = vas.GetAllActions();
             List<VoluntaryActionDto> vaDtos = new List<VoluntaryActionDto>();
-           
-
             foreach (VoluntaryAction a in actions)
             {
                 VoluntaryActionDto vd = new VoluntaryActionDto();
@@ -50,27 +48,29 @@ namespace Volunteering.UI.Controllers_Api
                     vDt.Role = "Volunteer";
                     vd.Participants.Add(vDt);
                 }
-                vaDtos.Add(vd);
-                   
+                vaDtos.Add(vd);               
             }
-
-
-
             return vaDtos;
-           
-
         }
 
 
 
-        [Route("getAction")]
+        [Route("getAction/{id}")]
         // GET: api/VoluntaryAction/5
-        public string Get(int id)
+        public VoluntaryAction Get(int id)
         {
-            return "value";
+            return vas.GetById(id);
         }
 
-        
+
+        [Route("getRecentActions")]
+        // GET: api/VoluntaryAction/
+        public IEnumerable<VoluntaryAction> GetRecentActions()
+        {
+            return vas.GetRecentActions();
+        }
+
+
 
         // POST: api/VoluntaryAction
         public void Post([FromBody]string value)
