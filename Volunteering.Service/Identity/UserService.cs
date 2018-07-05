@@ -103,11 +103,13 @@ namespace Volunteering.Service.Identity
 
         public string GetUserRole(ApplicationUser user)
         {
-            string role = _userManager.GetRoles(user.Id).First();
 
-            if (role != null)
+            var roles = _userManager.GetRoles(user.Id);
+
+
+            if (roles != null)
             {
-                return role;
+                return roles.First();
             }
             else
             {

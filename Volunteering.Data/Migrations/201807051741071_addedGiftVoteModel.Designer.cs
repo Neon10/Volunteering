@@ -7,13 +7,13 @@ namespace Volunteering.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class RebuildingDbSchema : IMigrationMetadata
+    public sealed partial class addedGiftVoteModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RebuildingDbSchema));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addedGiftVoteModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "201807010859423_RebuildingDbSchema"; }
+            get { return "201807051741071_addedGiftVoteModel"; }
         }
         
         string IMigrationMetadata.Source

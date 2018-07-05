@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Volunteering.Domain.Enums;
-using Volunteering.Domain.ValidationAttribute;
 
 namespace Volunteering.Domain.Entities
 {
@@ -11,7 +9,7 @@ namespace Volunteering.Domain.Entities
     {
         public VoluntaryAction()
         {
-            Participants= new List<Volunteer>();
+            Participants = new List<Volunteer>();
         }
         [Key]
         public int ActionId { get; set; }
@@ -50,6 +48,10 @@ namespace Volunteering.Domain.Entities
 
         [Required]
         public string CreatorNgoId { get; set; }
+
+        public double Long { get; set; }
+
+        public double Lat { get; set; }
 
 
     }

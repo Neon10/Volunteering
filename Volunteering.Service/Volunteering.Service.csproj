@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppService.cs" />
+    <Compile Include="DiscussionService.cs" />
     <Compile Include="DonationService.cs" />
     <Compile Include="FundraisingCampaignService.cs" />
     <Compile Include="Identity\ApplicationSignInManager.cs" />

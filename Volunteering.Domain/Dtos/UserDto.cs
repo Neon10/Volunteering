@@ -9,6 +9,8 @@
             Email = "empty";
             PhoneNumber = "empty";
             Role = "empty";
+            ImageUrl = "https://www.w3schools.com/w3images/avatar2.png";
+            Solde = 1000;
 
         }
         public string Id { get; set; }
@@ -16,6 +18,9 @@
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Role { get; set; }
+        public string ImageUrl { get; set; }
+        public int Solde { get; set; }
+
 
     }
 }

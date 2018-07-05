@@ -1,125 +1,84 @@
-﻿@model Volunteering.Domain.Entities.ApplicationUser
+﻿    @using Microsoft.Ajax.Utilities    @using Microsoft.AspNet.Identity
+@using Volunteering.Service.Identity
+@model Volunteering.Domain.Entities.ApplicationUser
 
 @{
     ViewBag.Title = "UserProfile";
 }
-<div class="well well-lg row">
-    <h2>UserProfile</h2>
 
+
+
+<div class="well well-lg row">
+ 
+    
     <div class="col col-md-4">
         <div class="well well-lg">
 
-            <img src="https://www.w3schools.com/bootstrap/paris.jpg" class="img-responsive" alt="Cinque Terre">
-            <h3 class="text-center"> <span class="label label-info">@Model.Name</span></h3>
+            <h5 align="center"> @Html.Label(Model.Id)</h5> 
+            <img src="@Model.ImageUrl" class="img-responsive img-thumbnail" alt="Cinque Terre">
+            <div class="well well-sm">
+                <h3 class="text-center"> <span class="label label-info">@Model.Name</span></h3>
+                @if (Model.Id != User.Identity.GetUserId() && User.Identity.IsAuthenticated)
+                {
+
+
+
+                    using (Html.BeginForm("CreateNewDiscussion", "Discussion", FormMethod.Get, new {id = Model.Id}))
+                    {
+                        @Html.Hidden("email", Model.Email)
+                        <input type="submit" value="Send Message" class="btn btn-info btn-lg glyphicon glyphicon-envelope"/>
+                    }
+
+                }
+                <ul class="form-group">
+                    <li>@Html.Label(Model.Email)</li> 
+                    <li>@Html.Label(Model.PhoneNumber.IfNullOrWhiteSpace("N/A")))</li> 
+                    <li>@Html.Label(new UserService().GetUserRole(Model))</li>
+
+                </ul>
+
+
+
+
+
+            </div>
+
+                   
         </div>
     </div>
-    <div class="col col-md-8">
+    
+    
+    <!--ACTIONS LIST-->
+
+    <div class="col col-md-4">
         <div class="well well-lg">
-        <h4>User Informations:</h4>
-        <hr/>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Email)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Email)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.EmailConfirmed)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.EmailConfirmed)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.PasswordHash)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.PasswordHash)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.SecurityStamp)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.SecurityStamp)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.PhoneNumber)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.PhoneNumber)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.PhoneNumberConfirmed)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.TwoFactorEnabled)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.LockoutEndDateUtc)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.LockoutEnabled)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.LockoutEnabled)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.AccessFailedCount)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.AccessFailedCount)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.UserName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.UserName)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-
-            </dl>
+            <label>Actions </label>
+        </div>
+        <div class="well well-lg">
         </div>
     </div>
+    
+    <!--CAMPAIGNS LIST-->
+
+    <div class="col col-md-4">
+        <div class="well well-lg">
+            <label>Campaigns </label>
+        </div>
+        <div class="well well-lg">
+        </div>
+
+    </div>
+
+
+
+
     <p>
         @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
             @Html.ActionLink("Back to List", "Index")*@
     </p>
+    
+    
+    
+
 
 </div>

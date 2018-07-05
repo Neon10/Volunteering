@@ -128,6 +128,7 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -206,6 +207,7 @@
     <Content Include="Content\Images\funky-lines.png" />
     <Content Include="Content\Images\intersection.png" />
     <Content Include="Content\Site.css" />
+    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -236,6 +238,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DiscussionController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\FundraisingCampaignController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -291,6 +294,7 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Discussion\CreateNewDiscussion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
