@@ -100,16 +100,22 @@ namespace Volunteering.UI.Controllers_Api
         }
 
         [Route("GetUser/{id}")]
+        [AllowAnonymous]
         public IHttpActionResult GetUser(string id)
         {
-
             ApplicationUser user = _userService.UserManager.FindById(id);
-            UserDto userDto = new UserDto();
 
-            AutoMapper.AutoMapUser(user, userDto);
-            userDto.Role = _userService.GetUserRole(user);
+            if (user != null)
+            {
+                UserDto userDto = new UserDto();
 
-            return Ok(userDto);
+                AutoMapper.AutoMapUser(user, userDto);
+                userDto.Role = _userService.GetUserRole(user);
+
+                return Ok(userDto);
+            }
+
+            return NotFound();
         }
 
 
@@ -169,7 +175,7 @@ namespace Volunteering.UI.Controllers_Api
                 _userService.RegisterUser(name, email, password, type, ref result);
                 if (result.Succeeded)
                 {
-                    return "RegistrationSuccess !";
+                    return "RegistrationSuccess";
                 }
 
                 return "RegistrationFailed";

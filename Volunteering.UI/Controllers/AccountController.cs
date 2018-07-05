@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Volunteering.Domain.Entities;
 using Volunteering.Service.Identity;
 using Volunteering.UI.Models;
 
@@ -150,17 +151,55 @@ namespace Volunteering.UI.Controllers
         [Authorize]
         public ActionResult EditProfile(string id)
         {
-            if (HttpContext.User.Identity.GetUserId() == id || _userService.GetUserRole(_userService.UserManager.FindById(id)).Equals("Administrator"))
+            if (id != null
+                && _userService.UserManager.FindById(id) != null
+                && HttpContext.User.Identity.GetUserId() == id
+                || _userService.GetUserRole(_userService.UserManager.FindById(id)).Equals("Administrator"))
             {
+
                 var user = _userService.UserManager.FindById(id);
+
                 return View(user);
+
             }
+
 
             return View("Error");
 
         }
 
+        // POST: Account/EditProfile/12ez-aze56-ezsze5
+        [Authorize(Roles = "Ngo")]
+        [HttpPost]
+        public ActionResult EditProfile(string id, ApplicationUser u)
+        {
+            ApplicationUser user = _userService.UserManager.FindById(id);
 
+            try
+            {
+                //action.Name = V.Name;
+                //action.Address = V.Address;
+                //action.Description = V.Description;
+                //action.StartDate = V.StartDate;
+                //action.EndDate = V.EndDate;
+                //action.MaxVolunteers = V.MaxVolunteers;
+                //action.ActionType = V.ActionType;
+
+                user.Name = u.Name;
+                user.PhoneNumber = u.PhoneNumber;
+                user.Email = u.Email;
+                user.UserName = u.Email;
+
+
+                //_userService.UserManager.ChangePassword()
+                _userService.UserManager.Update(user);
+                return Redirect("../userProfile/" + id);
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
 
         //===========================//

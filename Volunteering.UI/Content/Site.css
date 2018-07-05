@@ -59,6 +59,11 @@ textarea {
     font-family: monospace;
 }
 
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+    color: #fff;
+    background-color: #222733;
+}
+
 .navbar-inverse {
     background-color: rgba(9, 19, 43, 0.84);
     border-color: #080808;
@@ -82,6 +87,12 @@ textarea {
 .img-circle {
     border-radius: 50%;
     width: 40px;
+}
+
+.img-home {
+    width: 45% !important;
+
+
 }
 
 .hello-div {

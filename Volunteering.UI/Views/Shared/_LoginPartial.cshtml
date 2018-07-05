@@ -1,11 +1,13 @@
 ﻿
+@using System.Activities.Expressions
 @using System.Web.Razor.Parser.SyntaxTree
 @using Microsoft.AspNet.Identity
+@using Volunteering.Domain.Entities
 @using Volunteering.Service.Identity
 @{UserService _us = new UserService(); }
+
 @if (Request.IsAuthenticated)
 {
-
 
     <ul class="nav navbar-nav navbar-right">
         <li>
@@ -29,6 +31,19 @@
                         <li><a href="../FundraisingCampaign/Create">Add New Campaign</a></li>
                     </ul>
                 }
+                
+                @if (User.IsInRole("Administrator"))
+                {
+                    <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog h3"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="../VoluntaryAction/Index">Manage Actions</a></li>
+                        <li><a href="../FundraisingCampaign/Index">Manage Campaigns</a></li>
+                        <li><a href="../Account/Index">Manage Users</a></li>
+
+                    </ul>
+                }
             </div>
         </li>
 
@@ -39,11 +54,13 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="https://www.w3schools.com/w3images/avatar2.png" class="img-responsive img-circle"></a>
 
                 <ul class="dropdown-menu">
+                    <li><p class="alert-info"> @_us.UserManager.FindById(User.Identity.GetUserId()).Email </p></li>
                     <li>@Html.ActionLink("Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
                     <li><a href="../Manage/Index#invitations">Invitations <span class="label label-danger ">@ViewBag.countV</span></a></li>
                     <li><a href="../Manage/Index">Messages <span class="label label-danger ">@(new UserService().GetAll().Count())</span></a></li>
                     <li role="separator" class="divider"></li>
-                    <li> @Html.ActionLink("Logout", "Logout", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    <li>@Html.ActionLink("Edit Profile","EditProfile","Account" , new {id=User.Identity.GetUserId()}, null) </li>
+                    <li> @Html.ActionLink("Logout", "Logout", "Account", routeValues: null, htmlAttributes: new {  id = "loginLink" })</li>
 
 
                 </ul>
@@ -59,8 +76,8 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink(" ", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = " glyphicon glyphicon-plus-sign h3" })</li>
-        <li> @Html.ActionLink(" ", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" , @class = " glyphicon glyphicon-log-in h3" })</li>
+        <li>@Html.ActionLink(" Register", "Register", "Account", FormMethod.Post, new { @class = "glyphicon  glyphicon-briefcase btn btn-primary" })</li>
+        <li>@Html.ActionLink(" Login", "Login", "Account", FormMethod.Post, new { @class = "glyphicon glyphicon-bookmark  btn btn-warning" })</li>
     </ul>
 
 }
